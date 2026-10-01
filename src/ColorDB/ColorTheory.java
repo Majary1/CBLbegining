@@ -6,6 +6,6 @@ public class ColorTheory {
 
 
     public static void check(Outfit outfit){
-
+        System.out.println("chuj");
     }
 }
