@@ -21,7 +21,7 @@ public class MainFrame extends JFrame {
 
         JButton addClothing = new JButton("ADD NEW CLOTHES");
         addClothing.setBounds(100,100,460, 460);
-        addClothing.addActionListener(_ -> addClothies());
+        addClothing.addActionListener(_ -> addClothes());
 
         ImageIcon icon = new ImageIcon("src\\AddFiles\\images.jpg");
         frame.setIconImage(icon.getImage());
