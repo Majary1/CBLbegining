@@ -4,33 +4,28 @@ import javax.swing.*;
 import java.awt.*;
 import static GUI.AddClothing.*;
 import static GUI.CreateOutfit.*;
+import ColorDB.ColorWheelPanel;
 
 public class MainFrame extends JFrame {
 
     public void mainFrame(){
         final JFrame frame = new JFrame("Dress yourself");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setLayout(new BorderLayout());
 
-        JButton exit = new JButton("EXIT");
-        exit.setBounds(80, 80, 460, 460);
-        exit.addActionListener(_ -> frame.dispose());
 
-        JButton newOutfit = new JButton("CREATE NEW OUTFIT");
-        newOutfit.setBounds(100,100,460, 460);
-        newOutfit.addActionListener( _ -> createOutfit());
+        SidebarPanel sidebarPanel = new SidebarPanel();
+        CentralPanel centralPanel = new CentralPanel();
+        AddClothingPanel addclothingPanel = new AddClothingPanel();
 
-        JButton addClothing = new JButton("ADD NEW CLOTHES");
-        addClothing.setBounds(100,100,460, 460);
-        addClothing.addActionListener(_ -> addClothies());
+        frame.add(sidebarPanel,BorderLayout.WEST);
+        frame.add(centralPanel,BorderLayout.CENTER);
+        frame.add(addclothingPanel,BorderLayout.EAST);
+
 
         ImageIcon icon = new ImageIcon("src\\AddFiles\\images.jpg");
         frame.setIconImage(icon.getImage());
 
-        JPanel panel = new JPanel();
-        panel.add(addClothing);
-        panel.add(newOutfit);
-        panel.add(exit);
-        frame.add(panel);
 
         frame.pack();
         frame.setVisible(true);
