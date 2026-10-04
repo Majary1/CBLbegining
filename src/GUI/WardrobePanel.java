@@ -12,6 +12,7 @@ public class WardrobePanel extends JPanel {
 
         setPreferredSize(new Dimension(380,0));
         setBackground(Theme.PANEL);
+        setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY,2));
         JLabel title = new JLabel("My clothes");
         title.setFont(Theme.TITLE_FONT);
         title.setForeground(Theme.TEXT);

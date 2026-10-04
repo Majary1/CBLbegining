@@ -52,6 +52,7 @@ public class CategoryPanel extends JPanel {
         button.setFont(new Font("Monospaced", Font.PLAIN, 13));
         button.setForeground(Theme.TEXT);
         button.setBackground(Theme.ACCENT_LIGHT);
+        button.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY,1));
 
         button.setFocusPainted(false);
         button.setBorderPainted(false);

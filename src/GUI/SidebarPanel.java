@@ -12,8 +12,10 @@ public class SidebarPanel extends JPanel {
 
     public SidebarPanel(){
         setPreferredSize(new Dimension(180,0));
+        setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY,2));
         setBackground(Theme.SIDEBAR);
-        setBorder(BorderFactory.createEmptyBorder(30, 15, 25, 15));
+
+        //setBorder(BorderFactory.createEmptyBorder(30, 15, 25, 15));
         setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         JLabel title = new JLabel("Virtual");
         title.setFont(Theme.TITLE_FONT);

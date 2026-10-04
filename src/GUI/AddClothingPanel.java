@@ -18,7 +18,8 @@ public class AddClothingPanel extends JPanel {
         setBackground(Theme.PANEL);
         setBorder(BorderFactory.createEmptyBorder(25, 20, 25, 20));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
+        setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY,2));
+        //setBorder(BorderFactory.createEmptyBorder(0,5,0,5));
 
         //TITLE
 
@@ -62,6 +63,7 @@ public class AddClothingPanel extends JPanel {
         //PREVIEW PLACE
 
         colorPreview = new JPanel();
+        colorPreview.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY,1));
         colorPreview.setPreferredSize(new Dimension(70, 70));
         colorPreview.setMaximumSize(new Dimension(70, 70));
         colorPreview.setBackground(Color.WHITE);

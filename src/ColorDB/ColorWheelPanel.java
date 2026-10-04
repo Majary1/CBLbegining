@@ -1,4 +1,6 @@
 package ColorDB;
+import GUI.Theme;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -125,7 +127,7 @@ public class ColorWheelPanel extends JPanel {
                     g.setColor(pixelColour);
                     g.fillRect(x, y, 1, 1);
                 }else {
-                    g.setColor(Color.WHITE);
+                    g.setColor(Theme.PANEL);
                     g.fillRect(x,y,1,1);
                 }
             }
