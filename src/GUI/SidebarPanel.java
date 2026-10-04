@@ -15,10 +15,14 @@ public class SidebarPanel extends JPanel {
         setBackground(Theme.SIDEBAR);
         setBorder(BorderFactory.createEmptyBorder(30, 15, 25, 15));
         setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-        JLabel title = new JLabel("Virtual"+"\n"+"Wardrobe");
+        JLabel title = new JLabel("Virtual");
         title.setFont(Theme.TITLE_FONT);
         title.setForeground(Theme.TEXT);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel title2 = new JLabel("Wardrobe");
+        title2.setFont(Theme.TITLE_FONT);
+        title2.setForeground(Theme.TEXT);
+        title2.setAlignmentX(Component.CENTER_ALIGNMENT);
         //initialize buttons
 
         createButton = new JButton("♧ Create");
@@ -35,6 +39,8 @@ public class SidebarPanel extends JPanel {
         Theme.activeButton(createButton);
         //set structure
         add(title);
+        add(Box.createVerticalStrut(3));
+        add(title2);
         add(Box.createVerticalStrut(50));
         add(createButton);
         add(Box.createVerticalStrut(10));
@@ -44,6 +50,28 @@ public class SidebarPanel extends JPanel {
         add(Box.createVerticalGlue());
         add(settingsButton);
 
+    }
+    public JButton getAddClothingButton(){
+        return addClothingButton;
+    }
+    public JButton getWardrobeButton(){
+        return wardrobeButton;
+    }
+    public JButton setActiveAddClothingButton(){
+        Theme.activeButton(addClothingButton);
+        return addClothingButton;
+    }
+    public  JButton deActiveAddClothingButton(){
+        Theme.setThemeButton(addClothingButton);
+        return addClothingButton;
+    }
+    public JButton setActiveWardrobeButton(){
+        Theme.activeButton(wardrobeButton);
+        return wardrobeButton;
+    }
+    public  JButton deActiveWardrobeButton(){
+        Theme.setThemeButton(wardrobeButton);
+        return wardrobeButton;
     }
 
 }

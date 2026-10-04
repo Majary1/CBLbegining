@@ -9,7 +9,7 @@ public class WardrobeContainerPanel extends JPanel {
 
     public WardrobeContainerPanel(){
         setLayout(new BorderLayout());
-
+        setBorder(null);
         containerPanel = new JPanel();
         containerPanel.setLayout(new GridLayout(0,2,10,10));
         JScrollPane scrollPane = new JScrollPane(containerPanel);

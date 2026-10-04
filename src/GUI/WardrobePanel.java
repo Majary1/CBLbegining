@@ -12,7 +12,7 @@ public class WardrobePanel extends JPanel {
 
         setPreferredSize(new Dimension(380,0));
         setBackground(Theme.PANEL);
-        JLabel title = new JLabel("My Wardorbe");
+        JLabel title = new JLabel("My clothes");
         title.setFont(Theme.TITLE_FONT);
         title.setForeground(Theme.TEXT);
         title.setBorder(BorderFactory.createEmptyBorder(20,15,10,10));
@@ -85,4 +85,5 @@ public class WardrobePanel extends JPanel {
         wardrobeContainerPanel.addClothingCard("Hat");
         wardrobeContainerPanel.addClothingCard("Bag");
     }
+
 }
