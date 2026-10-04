@@ -10,18 +10,25 @@ public class WardrobePanel extends JPanel {
 
     public WardrobePanel(){
 
-        setPreferredSize(new Dimension(280,0));
-        setBackground(Color.GREEN);
+        setPreferredSize(new Dimension(380,0));
+        setBackground(Theme.PANEL);
         JLabel title = new JLabel("My Wardorbe");
+        title.setFont(Theme.TITLE_FONT);
+        title.setForeground(Theme.TEXT);
+        title.setBorder(BorderFactory.createEmptyBorder(20,15,10,10));
         add(title);
         setLayout(new BorderLayout());
 
 
         categoryPanel = new CategoryPanel();
         wardrobeContainerPanel = new WardrobeContainerPanel();
+        JPanel topPanel = new JPanel();
+        topPanel.setBackground(Theme.PANEL);
+        topPanel.setLayout(new BorderLayout());
+        topPanel.add(title,BorderLayout.NORTH);
+        topPanel.add(categoryPanel, BorderLayout.CENTER);
 
-
-        add(categoryPanel,BorderLayout.NORTH);
+        add(topPanel,BorderLayout.NORTH);
         add(wardrobeContainerPanel, BorderLayout.CENTER);
         setupListeners();
         showTestTops();

@@ -6,7 +6,7 @@ import java.awt.*;
 public class CharacterPanel extends JPanel {
     public CharacterPanel(){
 
-        setBackground(Color.MAGENTA);
+        setBackground(Theme.PANEL);
         JLabel title = new JLabel("Character");
         add(title);
     }

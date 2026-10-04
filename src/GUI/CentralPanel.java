@@ -9,7 +9,7 @@ public class CentralPanel extends JPanel {
     private CharacterPanel characterPanel;
 
     public CentralPanel(){
-        setBackground(Color.BLUE);
+        setBackground(Theme.BACKGROUND);
         setLayout(new BorderLayout());
         wardrobePanel = new WardrobePanel();
         characterPanel = new CharacterPanel();
