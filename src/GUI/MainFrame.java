@@ -7,7 +7,7 @@ import static GUI.CreateOutfit.*;
 import ColorDB.ColorWheelPanel;
 
 public class MainFrame extends JFrame {
-
+    public int order=0;
     public void mainFrame(){
 
         //PROPERTIES

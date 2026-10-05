@@ -14,4 +14,7 @@ public class Clothes {
         this.category = category;
         this.avarageColor = avarageColor;
     }
+    public String getName(){
+        return name;
+    }
 }

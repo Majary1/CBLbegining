@@ -1,17 +1,21 @@
 package GUI;
 import ColorDB.ColorWheelPanel;
+import Obj.Category;
+import Obj.Clothes;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class AddClothingPanel extends JPanel {
     private JTextField nameField;
-    private JComboBox<String> categoryBox;
+    private JComboBox<Category> categoryBox;
     private ColorWheelPanel colorWheelPanel;
     private JPanel colorPreview;
     private JSlider brightnessSlider;
     private JButton colorButton;
     private JButton addButton;
     private Color selectedColor;
+    public int order=0;
     public AddClothingPanel(){
         //PROPERTIES
         setPreferredSize(new Dimension(320,0));
@@ -40,14 +44,8 @@ public class AddClothingPanel extends JPanel {
         //CATEGORY
 
         JLabel categoryLabel = createLabel("Category");
-        String[] categories = {
-                "Tops",
-                "Bottoms",
-                "Shoes",
-                "Accessories",
-                "Hats"
-        };
-        categoryBox = new JComboBox<>(categories);
+        Category[] categories = new Category[0];
+        categoryBox = new JComboBox<>(Category.values());
         categoryBox.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
         categoryBox.setFont(Theme.NORMAL_FONT);
         categoryBox.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -106,7 +104,11 @@ public class AddClothingPanel extends JPanel {
         addButton.setFont(Theme.BUTTON_FONT);
         addButton.setFocusPainted(false);
         addButton.setBorderPainted(false);
-        addButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
+        addButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 80));
+        addButton.addActionListener(e->{
+
+            Clothes clothes = new Clothes(order,nameField.getText(),(Category)categoryBox.getSelectedItem(),selectedColor);
+        });
 
         //STRUCTURE
         add(title);
@@ -126,6 +128,7 @@ public class AddClothingPanel extends JPanel {
         add(brightnessSlider);
         add(Box.createVerticalGlue());
         add(addButton);
+        add(Box.createVerticalStrut(50));
 
     }
     private JLabel createLabel(String text) {

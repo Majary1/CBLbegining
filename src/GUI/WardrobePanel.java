@@ -32,7 +32,6 @@ public class WardrobePanel extends JPanel {
         add(topPanel,BorderLayout.NORTH);
         add(wardrobeContainerPanel, BorderLayout.CENTER);
         setupListeners();
-        showTestTops();
 
     }
     private void setupListeners() {
@@ -58,33 +57,28 @@ public class WardrobePanel extends JPanel {
 
         wardrobeContainerPanel.clearClothes();
 
-        wardrobeContainerPanel.addClothingCard("Pink Top");
-        wardrobeContainerPanel.addClothingCard("Black Top");
-        wardrobeContainerPanel.addClothingCard("White Top");
+
     }
 
     private void showTestBottoms() {
 
         wardrobeContainerPanel.clearClothes();
 
-        wardrobeContainerPanel.addClothingCard("Blue Jeans");
-        wardrobeContainerPanel.addClothingCard("Black Pants");
+
     }
 
     private void showTestShoes() {
 
         wardrobeContainerPanel.clearClothes();
 
-        wardrobeContainerPanel.addClothingCard("White Shoes");
-        wardrobeContainerPanel.addClothingCard("Black Shoes");
+
     }
 
     private void showTestAccessories() {
 
         wardrobeContainerPanel.clearClothes();
 
-        wardrobeContainerPanel.addClothingCard("Hat");
-        wardrobeContainerPanel.addClothingCard("Bag");
+
     }
 
 }

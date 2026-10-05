@@ -1,5 +1,7 @@
 package GUI;
 
+import Obj.Clothes;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -16,8 +18,8 @@ public class WardrobeContainerPanel extends JPanel {
 
         add(scrollPane,BorderLayout.CENTER);
     }
-    public void addClothingCard(String name){
-        ClothingCard card = new ClothingCard(name);
+    public void addClothingCard(Clothes clothes){
+        ClothingCard card = new ClothingCard(clothes);
         containerPanel.add(card);
         containerPanel.revalidate();
         containerPanel.repaint();

@@ -15,7 +15,7 @@ public class CategoryPanel extends JPanel {
 
     public CategoryPanel() {
         setLayout(new GridLayout(2,3,10,10));
-
+        setBackground(Theme.PANEL);
         shoesButton = createCategoryButton("Shoes");
         topButton = createCategoryButton("Tops");
         bottomButton = createCategoryButton("Bottoms");
@@ -48,11 +48,11 @@ public class CategoryPanel extends JPanel {
     private JButton createCategoryButton(String text) {
 
         JButton button = new JButton(text);
-
-        button.setFont(new Font("Monospaced", Font.PLAIN, 13));
+        button.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY,1));
+        button.setFont(new Font("Monospaced", Font.BOLD, 13));
         button.setForeground(Theme.TEXT);
         button.setBackground(Theme.ACCENT_LIGHT);
-        button.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY,1));
+
 
         button.setFocusPainted(false);
         button.setBorderPainted(false);
