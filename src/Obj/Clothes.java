@@ -20,4 +20,5 @@ public class Clothes {
     public Color getAvarageColor(){
         return avarageColor;
     }
+
 }

@@ -57,7 +57,7 @@ public class DbController {
     }
 
     public void saveClothes(Clothes clothes){}
-
+    public Clothes findClothById(int id){return null;}
     public Category findClothingByCategory(Category category){return null;}
 
     public void deleteClothing(int id){}
