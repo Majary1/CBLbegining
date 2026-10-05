@@ -4,15 +4,35 @@ import Obj.*;
 import java.sql.*;
 
 public class DbController {
-    String url = "jdbc:sqlite:DressYourself.db";
+    String url = "jdbc:sqlite:DataBase.db";
 
     public Connection getConnection() throws SQLException {
+        /*
         Connection connection = DriverManager.getConnection(url);
         try (Statement st = connection.createStatement()) {
             st.execute("PRAGMA foreign_keys = ON");
         }
         return connection;
+         */
+
+        try {
+            Class.forName("org.sqlite.JDBC");
+            System.out.println("SQLite driver found");
+        } catch (ClassNotFoundException e) {
+            System.out.println("SQLite driver NOT found");
+        }
+
+        System.out.println("Connecting to: " + url);
+
+        Connection connection = DriverManager.getConnection(url);
+
+        try (Statement st = connection.createStatement()) {
+            st.execute("PRAGMA foreign_keys = ON");
+        }
+
+        return connection;
     }
+
 /*
 // This fnuction is not needed yet in case it is would be in a future it is left written here!
     public void initSchema(){
@@ -70,7 +90,7 @@ public class DbController {
 
             return ps.executeUpdate() == 1;
         } catch (SQLException e){
-            System.err.println("Could not save recipe: " + e.getMessage());
+            System.err.println("Could not save clothes: " + e.getMessage());
             return false;
         }
     }

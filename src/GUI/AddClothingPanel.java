@@ -5,6 +5,7 @@ import Obj.Clothes;
 
 import javax.swing.*;
 import java.awt.*;
+import ColorDB.*;
 
 public class AddClothingPanel extends JPanel {
     private JTextField nameField;
@@ -16,6 +17,8 @@ public class AddClothingPanel extends JPanel {
     private JButton addButton;
     private Color selectedColor;
     public int order=0;
+    private DbController db = new DbController();
+
     public AddClothingPanel(){
         //PROPERTIES
         setPreferredSize(new Dimension(320,0));
@@ -108,6 +111,13 @@ public class AddClothingPanel extends JPanel {
         addButton.addActionListener(e->{
 
             Clothes clothes = new Clothes(order,nameField.getText(),(Category)categoryBox.getSelectedItem(),selectedColor);
+
+            boolean saved = db.saveClothes(clothes);
+
+            if (saved) {
+                JOptionPane.showMessageDialog(this, "Clothing saved!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Could not save clothing.");}
 
 
         });
