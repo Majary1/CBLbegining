@@ -17,4 +17,7 @@ public class Clothes {
     public String getName(){
         return name;
     }
+    public Color getAvarageColor(){
+        return avarageColor;
+    }
 }
