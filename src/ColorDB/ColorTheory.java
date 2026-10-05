@@ -8,7 +8,7 @@ public class ColorTheory {
 
 
     public void check(Outfit outfit){
-        int length = outfit.partsOfOutfit.size();
+        int length = outfit.partsOfOutfit.length;
         for(int i = 0; i<length;i++){
             for(int j = 0;j<length;j++){
 

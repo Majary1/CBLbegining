@@ -21,4 +21,7 @@ public class Clothes {
         return avarageColor;
     }
 
+    public int getId() {return id;}
+
+    public Category getCategory() {return category;}
 }

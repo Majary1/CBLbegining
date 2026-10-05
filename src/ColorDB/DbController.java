@@ -13,7 +13,8 @@ public class DbController {
         }
         return connection;
     }
-
+/*
+// This fnuction is not needed yet in case it is would be in a future it is left written here!
     public void initSchema(){
         String clothes = "CREATE TABLE IF NOT EXISTS Clothes ("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -35,19 +36,121 @@ public class DbController {
             System.err.println("Could not create a table" + e.getMessage());
         }
     }
-
+ */
 
     public Clothes findPieceOfClothnigByID(int id){
-         initSchema();
-
-        String sql = "SELECT id FROM Clothes WHERE id = ?";
+        String sql = "SELECT ID, NAME, CATEGORY, COLOR FROM CLOTHES WHERE ID = ?";
         try (Connection c = getConnection();
              PreparedStatement ps = c.prepareStatement(sql)) {
 
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    //return rs.getString("name");
+                    int clothesId = rs.getInt("ID");
+                    String clothesName = rs.getNString("NAME");
+                    String clothesCategory = rs.getString("CATEGORY");
+                    String clothesColor = rs.getString("COLOR");
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Database error: " + e.getMessage());
+        }
+        return null;
+    }
+
+    public boolean saveClothes(Clothes clothes){
+        String sql = "INSERT INTO CLOTHES (ID, NAME, CATEGORY, COLOR) VALUES (?, ?, ?, ?)";
+        try(Connection c = getConnection();
+            PreparedStatement ps = c.prepareStatement(sql)) {
+
+            ps.setInt(1, clothes.getId());
+            ps.setString(2, clothes.getName());   // enum -> text
+            ps.setString(3, clothes.getCategory().name());
+            ps.setString(4, clothes.getAvarageColor().toString());
+
+            return ps.executeUpdate() == 1;
+        } catch (SQLException e){
+            System.err.println("Could not save recipe: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public Category findClothingByCategory(Category category){
+        String sql = "SELECT ID, NAME, CATEGORY, CLOTHES FROM OUTFITS WHERE CLOTHES = ?";
+        try (Connection c = getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+
+            ps.setString(1, String.valueOf(category));
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    int outfitsId = rs.getInt("ID");
+                    String outfitsName = rs.getNString("NAME");
+                    String outfitsCategory = rs.getString("CATEGORY");
+                    String outfitsClothes = rs.getString("CLOTHES");
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Database error: " + e.getMessage());
+        }
+        return null;
+    }
+
+    public boolean deleteClothing(int id){
+        String sql = "DELETE FROM CLOTHES WHERE ID = ?";
+
+        try (Connection c = getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+
+            return  ps.executeUpdate() == 1;
+        }
+        catch (SQLException e){
+            System.err.println("Could not delete clothing" + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean saveOutfit(Outfit outfit){
+        String sql = "INSERT INTO OUTFITS (ID, NAME, CATEGORY, CLOTHES) VALUES (?, ?, ?, ?)";
+        try(Connection c = getConnection();
+            PreparedStatement ps = c.prepareStatement(sql)) {
+
+            ps.setInt(1, outfit.getId());
+            ps.setString(2, outfit.getName());   // enum -> text
+            ps.setString(3, outfit.getCateogry().name());
+
+            StringBuilder clothesIds = new StringBuilder();
+
+            for (Clothes clothes : outfit.getPartsOfOutfit()) {
+                if (clothesIds.length() > 0) {
+                    clothesIds.append(",");
+                }
+
+                clothesIds.append(clothes.getId());
+            }
+
+            ps.setString(4, clothesIds.toString());
+
+            return ps.executeUpdate() == 1;
+        } catch (SQLException e){
+            System.err.println("Could not save recipe: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public Outfit findOutfitByName(String name){
+        String sql = "SELECT ID, NAME, CATEGORY, CLOTHES FROM OUTFITS WHERE NAME = ?";
+        try (Connection c = getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+
+            ps.setString(1, name);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    int outfitsId = rs.getInt("ID");
+                    String outfitsName = rs.getNString("NAME");
+                    String outfitsCategory = rs.getString("CATEGORY");
+                    String outfitsClothes = rs.getString("CLOTHES");
                 }
             }
         } catch (SQLException e) {
@@ -56,16 +159,19 @@ public class DbController {
         return null;   // not found, or an error happened
     }
 
-    public void saveClothes(Clothes clothes){}
-    public Clothes findClothById(int id){return null;}
-    public Category findClothingByCategory(Category category){return null;}
+    public boolean deleteOutfit(int id){
+        String sql = "DELETE FROM OUTFITS WHERE ID = ?";
 
-    public void deleteClothing(int id){}
+        try (Connection c = getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
 
-    public void saveOutfit(){}
+            ps.setInt(1, id);
 
-    public Outfit findOutfitByName(String name){return null;}
-
-    public void deleteOutfit(){}
-
+            return  ps.executeUpdate() == 1;
+        }
+        catch (SQLException e){
+            System.err.println("Could not delete clothing" + e.getMessage());
+            return false;
+        }
+    }
 }

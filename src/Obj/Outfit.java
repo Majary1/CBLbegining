@@ -7,21 +7,31 @@ import java.util.EnumMap;
 public class Outfit {
     int id;
     String name;
-    EnumMap<Category, Clothes> Cateogry;
-    public ArrayList<Integer> partsOfOutfit;
+    Category category;
+    public Clothes[] partsOfOutfit;
+
     int current;
-    public Outfit(int id, String name, EnumMap<Category, Clothes> cateogry) {
+    public Outfit(int id, String name, Category category, Clothes[] clothes) {
         this.id = id;
         this.name = name;
-        Cateogry = cateogry;
-        partsOfOutfit = new ArrayList<>();
+        this.category = category;
+        partsOfOutfit = clothes;
         current = 0;
     }
-    public void addToCurrentOutfit(Clothes cloth){
-        partsOfOutfit.add(cloth.id);
 
+    public int getId() {
+        return id;
     }
-    public void removeFromCurrentOutfit(Clothes cloth){
-        partsOfOutfit.remove(cloth.id);
+
+    public String getName() {
+        return name;
+    }
+
+    public Category getCateogry() {
+        return category;
+    }
+
+    public Clothes[] getPartsOfOutfit() {
+        return partsOfOutfit;
     }
 }
