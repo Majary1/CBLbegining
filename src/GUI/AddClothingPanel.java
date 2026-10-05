@@ -108,6 +108,8 @@ public class AddClothingPanel extends JPanel {
         addButton.addActionListener(e->{
 
             Clothes clothes = new Clothes(order,nameField.getText(),(Category)categoryBox.getSelectedItem(),selectedColor);
+
+
         });
 
         //STRUCTURE

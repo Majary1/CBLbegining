@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class WardrobeContainerPanel extends JPanel {
 
-    private JPanel containerPanel;
+    public JPanel containerPanel;
 
     public WardrobeContainerPanel(){
         setLayout(new BorderLayout());
@@ -21,6 +21,7 @@ public class WardrobeContainerPanel extends JPanel {
     public void addClothingCard(Clothes clothes){
         ClothingCard card = new ClothingCard(clothes);
         containerPanel.add(card);
+
         containerPanel.revalidate();
         containerPanel.repaint();
 
@@ -30,5 +31,6 @@ public class WardrobeContainerPanel extends JPanel {
         containerPanel.revalidate();
         containerPanel.repaint();
     }
+
 
 }

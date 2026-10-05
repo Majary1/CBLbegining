@@ -2,6 +2,8 @@ package ColorDB;
 
 import Obj.Outfit;
 
+import java.awt.*;
+
 public class ColorTheory {
 
 
@@ -14,7 +16,7 @@ public class ColorTheory {
         }
 
     }
-    public void givesConflict(){
+    public void givesConflict(Color first,Color second){
 
     }
 }
