@@ -112,7 +112,7 @@ public class DbController {
             PreparedStatement ps = c.prepareStatement(sql)) {
 
             ps.setInt(1, clothes.getId());
-            ps.setString(2, clothes.getName());   // enum -> text
+            ps.setString(2, clothes.getName());
             ps.setString(3, clothes.getCategory().name());
             //we change the format to r,g,b not some strange idk
             Color avarageColor = clothes.getAvarageColor();

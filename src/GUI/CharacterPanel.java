@@ -1,5 +1,4 @@
 package GUI;
-import GUI.Theme;
 import Obj.Category;
 
 import javax.imageio.ImageIO;
@@ -8,13 +7,13 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.sql.BatchUpdateException;
 
 import static ColorDB.ColorChanger.colorChange;
-import static Obj.Category.*;
 
 public class CharacterPanel extends JPanel {
 
+    final int WIDTH = 500;
+    final int LENGTH = 700;
     private BufferedImage character;
     private BufferedImage currentTop;
     private BufferedImage currentBottom;
@@ -31,27 +30,25 @@ public class CharacterPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
-        int width = 500;
-        int length = 700;
-        int x = (getWidth()-width)/2;
-        int y = (getHeight()-length)/2;
+        int x = (getWidth()- WIDTH)/2;
+        int y = (getHeight()- LENGTH)/2;
 
-        g.drawImage(character,x,y,width,length,null);
+        g.drawImage(character,x,y, WIDTH, LENGTH,null);
         if(currentShoes!=null){
-            g.drawImage(currentShoes,x,y,width,length,null);
+            g.drawImage(currentShoes,x,y, WIDTH, LENGTH,null);
         }
         if(currentBottom!=null){
-            g.drawImage(currentBottom,x,y,width,length,null);
+            g.drawImage(currentBottom,x,y, WIDTH, LENGTH,null);
         }
 
        if(currentTop!=null){
-           g.drawImage(currentTop,x,y,width,length,null);
+           g.drawImage(currentTop,x,y, WIDTH, LENGTH,null);
        }
        if(currentHat!=null){
-           g.drawImage(currentHat,x,y,width,length,null);
+           g.drawImage(currentHat,x,y, WIDTH, LENGTH,null);
        }
        if(currentAccessories!=null){
-           g.drawImage(currentAccessories,x,y,width,length,null);
+           g.drawImage(currentAccessories,x,y, WIDTH, LENGTH,null);
        }
 
 
