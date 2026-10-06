@@ -17,9 +17,11 @@ public class MainFrame extends JFrame {
         frame.getContentPane().setBackground(Theme.BACKGROUND);
 
         //PANELS
-        SidebarPanel sidebarPanel = new SidebarPanel();
+
         CentralPanel centralPanel = new CentralPanel();
 
+        CharacterPanel characterPanel= centralPanel.getCharacterPanel();
+        SidebarPanel sidebarPanel = new SidebarPanel(characterPanel);
         WardrobePanel wardrobePanel = centralPanel.getWardrobePanel();
         WardrobeContainerPanel wardrobeContainerPanel = wardrobePanel.getWardrobeContainerPanel();
         AddClothingPanel addclothingPanel = new AddClothingPanel(wardrobeContainerPanel);

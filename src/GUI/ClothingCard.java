@@ -16,8 +16,12 @@ public class ClothingCard extends JButton {
     private JLabel image;
     private JLabel nameLabel;
     private CharacterPanel characterPanel;
-    public ClothingCard(Clothes clothes){
+    public ClothingCard(Clothes clothes,int width){
         setLayout(new BorderLayout());
+        setBackground(Theme.PANEL);
+        setBorder(BorderFactory.createLineBorder(Theme.BORDER,1));
+        width-=20;
+        setPreferredSize(new Dimension((width/2),150));
         BufferedImage bufferedImage = getImageforCategory(clothes);
         Image scaledImage = bufferedImage.getScaledInstance(120,160,Image.SCALE_SMOOTH);
         ImageIcon icon = new ImageIcon(scaledImage);
@@ -28,7 +32,7 @@ public class ClothingCard extends JButton {
         nameLabel = new JLabel(clothes.getName());
 
         add(image, BorderLayout.CENTER);
-        add(nameLabel, BorderLayout.SOUTH);
+
 
 
 
@@ -36,7 +40,7 @@ public class ClothingCard extends JButton {
     public BufferedImage getImageforCategory(Clothes clothes){
         return switch(clothes.getCategory()){
             case TOP ->
-                    colorChange(loadImage("src/AddFiles/assets/top_on.png"),clothes.getAvarageColor());
+                    colorChange(loadImage("src/AddFiles/assets/top_crop_sweater_pixel.png"),clothes.getAvarageColor());
             case BOTTOM ->
                     colorChange(loadImage("src/AddFiles/assets/pants_on.png"),clothes.getAvarageColor());
             case HAT ->

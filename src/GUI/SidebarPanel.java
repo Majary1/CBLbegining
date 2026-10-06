@@ -1,4 +1,5 @@
 package GUI;
+import ColorDB.ColorTheory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,9 +9,12 @@ public class SidebarPanel extends JPanel {
     private JButton createButton;
     private JButton wardrobeButton;
     private JButton addClothingButton;
+    private JButton checkButton;
     private JButton settingsButton;
+    private CharacterPanel characterPanel;
 
-    public SidebarPanel(){
+    public SidebarPanel(CharacterPanel characterPanel){
+        this.characterPanel = characterPanel;
         setPreferredSize(new Dimension(180,0));
         setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY,2));
         setBackground(Theme.SIDEBAR);
@@ -30,10 +34,15 @@ public class SidebarPanel extends JPanel {
         createButton = new JButton("♧ Create");
          wardrobeButton = new JButton("▣ Wardrobe");
          addClothingButton = new JButton("＋ Add Clothing");
+         checkButton = new JButton("Check");
          settingsButton = new JButton("⚙ Settings");
-
+         checkButton.addActionListener(e->{
+             ColorTheory colorTheory = new ColorTheory();
+             colorTheory.check(characterPanel.getCurrentOutfit());
+         });
         //Features
         Theme.setThemeButton(createButton);
+        Theme.setThemeButton(checkButton);
         Theme.setThemeButton(wardrobeButton);
         Theme.setThemeButton(addClothingButton);
         Theme.setThemeButton(settingsButton);
@@ -49,6 +58,8 @@ public class SidebarPanel extends JPanel {
         add(wardrobeButton);
         add(Box.createVerticalStrut(10));
         add(addClothingButton);
+        add(Box.createVerticalStrut(10));
+        add(checkButton);
         add(Box.createVerticalGlue());
         add(settingsButton);
 

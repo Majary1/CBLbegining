@@ -1,5 +1,6 @@
 package GUI;
 import Obj.Category;
+import Obj.Outfit;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -20,8 +21,9 @@ public class CharacterPanel extends JPanel {
     private BufferedImage currentShoes;
     private BufferedImage currentAccessories;
     private BufferedImage currentHat;
+    private Outfit currentOutfit;
     public CharacterPanel(){
-
+        currentOutfit = new Outfit(0);
         setBackground(Theme.PANEL);
         character = loadImage("src/AddFiles/assets/character_base_pixel.png");
 
@@ -72,6 +74,9 @@ private BufferedImage loadImage(String path) {
     } catch (IOException e) {
         throw new RuntimeException("Could not load image: " + path, e);
     }
+}
+public Outfit getCurrentOutfit(){
+        return currentOutfit;
 }
 }
 

@@ -22,4 +22,7 @@ public class CentralPanel extends JPanel {
     public  WardrobePanel getWardrobePanel(){
         return wardrobePanel;
     }
+    public CharacterPanel getCharacterPanel(){
+        return characterPanel;
+    }
 }

@@ -12,17 +12,22 @@ public class WardrobeContainerPanel extends JPanel {
     public WardrobeContainerPanel(CharacterPanel characterPanel){
         this.characterPanel = characterPanel;
         setLayout(new BorderLayout());
+        setBackground(Theme.BACKGROUND);
         setBorder(null);
         containerPanel = new JPanel();
-        containerPanel.setLayout(new GridLayout(0,2,10,10));
+        containerPanel.setLayout(new GridLayout(0,2,5,5));
         JScrollPane scrollPane = new JScrollPane(containerPanel);
 
         add(scrollPane,BorderLayout.CENTER);
     }
     public void addClothingCard(Clothes clothes){
-        ClothingCard card = new ClothingCard(clothes);
+        ClothingCard card = new ClothingCard(clothes,getWidth());
         card.addActionListener( e ->{
             characterPanel.setIconByCategory(clothes.getCategory(),clothes.getAvarageColor());
+            if(characterPanel.getCurrentOutfit().isThisCategoryInOutfit(clothes)){
+                characterPanel.getCurrentOutfit().removeByCategory(clothes.getCategory());
+            }
+            characterPanel.getCurrentOutfit().addClothToOutfit(clothes);
         });
         containerPanel.add(card);
 
