@@ -6,7 +6,7 @@ public class Clothes {
     int id;
     String name;
     Category category;
-    Color avarageColor;
+    Color avarageColor = Color.WHITE;
 
     public Clothes(int id, String name, Category category, Color avarageColor) {
         this.id = id;

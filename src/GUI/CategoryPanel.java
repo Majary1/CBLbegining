@@ -79,6 +79,9 @@ public class CategoryPanel extends JPanel {
     public JButton getAccessoriesButton() {
         return accessoriesButton;
     }
+    public JButton getHatButton(){
+        return hatButton;
+    }
 
 
     public void setActive(JButton activeButton) {

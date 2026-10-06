@@ -8,8 +8,9 @@ import java.awt.*;
 public class WardrobeContainerPanel extends JPanel {
 
     public JPanel containerPanel;
-
-    public WardrobeContainerPanel(){
+    private CharacterPanel characterPanel;
+    public WardrobeContainerPanel(CharacterPanel characterPanel){
+        this.characterPanel = characterPanel;
         setLayout(new BorderLayout());
         setBorder(null);
         containerPanel = new JPanel();
@@ -20,6 +21,9 @@ public class WardrobeContainerPanel extends JPanel {
     }
     public void addClothingCard(Clothes clothes){
         ClothingCard card = new ClothingCard(clothes);
+        card.addActionListener( e ->{
+            characterPanel.setIconByCategory(clothes.getCategory(),clothes.getAvarageColor());
+        });
         containerPanel.add(card);
 
         containerPanel.revalidate();

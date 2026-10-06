@@ -1,7 +1,10 @@
 package ColorDB;
 import Obj.*;
 
+import java.awt.*;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DbController {
     String url = "jdbc:sqlite:src/AddFiles/DataBase.db";
@@ -78,6 +81,31 @@ public class DbController {
         return null;
     }
 
+    public List<Clothes> showClothesByCategory(Category category){
+
+        List<Clothes> clothesList = new ArrayList<>();
+        String sql = "SELECT ID, NAME, CATEGORY, COLOR FROM CLOTHES WHERE CATEGORY = ?";
+        try (Connection c = getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+
+            ps.setString(1, category.name());
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    int clothesId = rs.getInt("ID");
+                    String clothesName = rs.getString("NAME");
+                    Category clothesCategory = Category.valueOf(rs.getString("CATEGORY"));
+                    String clothesColor = rs.getString("COLOR");
+                    Color color = parseColor(clothesColor);
+                    Clothes cloth = new Clothes(clothesId,clothesName,clothesCategory,color);
+                    clothesList.add(cloth);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Couldn't load the clothes " + e.getMessage());
+        }
+        return clothesList;
+    }
+
     public boolean saveClothes(Clothes clothes){
         String sql = "INSERT INTO CLOTHES (ID, NAME, CATEGORY, COLOR) VALUES (?, ?, ?, ?)";
         try(Connection c = getConnection();
@@ -86,7 +114,9 @@ public class DbController {
             ps.setInt(1, clothes.getId());
             ps.setString(2, clothes.getName());   // enum -> text
             ps.setString(3, clothes.getCategory().name());
-            ps.setString(4, clothes.getAvarageColor().toString());
+            //we change the format to r,g,b not some strange idk
+            Color avarageColor = clothes.getAvarageColor();
+            ps.setString(4, avarageColor.getRed()+","+ avarageColor.getGreen()+","+avarageColor.getBlue());
 
             return ps.executeUpdate() == 1;
         } catch (SQLException e){
@@ -192,6 +222,17 @@ public class DbController {
         catch (SQLException e){
             System.err.println("Could not delete clothing" + e.getMessage());
             return false;
+        }
+    }
+    private Color parseColor(String color) {
+        try {
+            String[] rgb = color.split(",");
+            int r = Integer.parseInt(rgb[0]);
+            int g = Integer.parseInt(rgb[1]);
+            int b = Integer.parseInt(rgb[2]);
+            return new Color(r, g, b);
+        } catch (Exception e) {
+            return Color.GRAY;
         }
     }
 }

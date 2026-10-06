@@ -1,15 +1,22 @@
 package GUI;
+import ColorDB.DbController;
+import Obj.Category;
+import Obj.Clothes;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class WardrobePanel extends JPanel {
 
     private CategoryPanel categoryPanel;
     private WardrobeContainerPanel wardrobeContainerPanel;
+    private DbController db;
 
-    public WardrobePanel(){
+    public WardrobePanel(CharacterPanel characterPanel){
 
+        db = new DbController();
         setPreferredSize(new Dimension(380,0));
         setBackground(Theme.PANEL);
         setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY,2));
@@ -22,7 +29,7 @@ public class WardrobePanel extends JPanel {
 
 
         categoryPanel = new CategoryPanel();
-        wardrobeContainerPanel = new WardrobeContainerPanel();
+        wardrobeContainerPanel = new WardrobeContainerPanel(characterPanel);
         JPanel topPanel = new JPanel();
         topPanel.setBackground(Theme.PANEL);
         topPanel.setLayout(new BorderLayout());
@@ -40,46 +47,32 @@ public class WardrobePanel extends JPanel {
     private void setupListeners() {
 
         categoryPanel.getTopsButton().addActionListener(e -> {
-            showTestTops();
+            showClothesFromCategory(Category.TOP);
         });
 
         categoryPanel.getBottomsButton().addActionListener(e -> {
-            showTestBottoms();
+            showClothesFromCategory(Category.BOTTOM);
         });
 
         categoryPanel.getShoesButton().addActionListener(e -> {
-            showTestShoes();
+            showClothesFromCategory(Category.SHOES);
         });
 
         categoryPanel.getAccessoriesButton().addActionListener(e -> {
-            showTestAccessories();
+            showClothesFromCategory(Category.ACCESSORY);
+        });
+        categoryPanel.getHatButton().addActionListener(e->{
+            showClothesFromCategory(Category.HAT);
         });
     }
 
-    private void showTestTops() {
+    private void showClothesFromCategory(Category category) {
 
         wardrobeContainerPanel.clearClothes();
-
-
-    }
-
-    private void showTestBottoms() {
-
-        wardrobeContainerPanel.clearClothes();
-
-
-    }
-
-    private void showTestShoes() {
-
-        wardrobeContainerPanel.clearClothes();
-
-
-    }
-
-    private void showTestAccessories() {
-
-        wardrobeContainerPanel.clearClothes();
+        List<Clothes> allClothes = db.showClothesByCategory(category);
+        for(Clothes clothes:allClothes){
+            wardrobeContainerPanel.addClothingCard(clothes);
+        }
 
 
     }
