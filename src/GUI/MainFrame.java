@@ -19,7 +19,10 @@ public class MainFrame extends JFrame {
         //PANELS
         SidebarPanel sidebarPanel = new SidebarPanel();
         CentralPanel centralPanel = new CentralPanel();
-        AddClothingPanel addclothingPanel = new AddClothingPanel();
+
+        WardrobePanel wardrobePanel = centralPanel.getWardrobePanel();
+        WardrobeContainerPanel wardrobeContainerPanel = wardrobePanel.getWardrobeContainerPanel();
+        AddClothingPanel addclothingPanel = new AddClothingPanel(wardrobeContainerPanel);
         addclothingPanel.setVisible(false);
         sidebarPanel.getAddClothingButton().addActionListener(e->{
             boolean isVisible = addclothingPanel.isVisible();
@@ -33,7 +36,7 @@ public class MainFrame extends JFrame {
             frame.repaint();
         });
         sidebarPanel.getWardrobeButton().addActionListener(e->{
-            WardrobePanel wardrobePanel = centralPanel.getWardrobePanel();
+            //WardrobePanel wardrobePanel = centralPanel.getWardrobePanel();
             boolean isVisibel = wardrobePanel.isVisible();
             wardrobePanel.setVisible(!isVisibel);
             if(wardrobePanel.isVisible()){

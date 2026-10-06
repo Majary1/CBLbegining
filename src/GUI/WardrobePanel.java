@@ -34,6 +34,9 @@ public class WardrobePanel extends JPanel {
         setupListeners();
 
     }
+    public WardrobeContainerPanel getWardrobeContainerPanel(){
+        return wardrobeContainerPanel;
+    }
     private void setupListeners() {
 
         categoryPanel.getTopsButton().addActionListener(e -> {

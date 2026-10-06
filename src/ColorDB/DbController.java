@@ -4,7 +4,7 @@ import Obj.*;
 import java.sql.*;
 
 public class DbController {
-    String url = "jdbc:sqlite:DataBase.db";
+    String url = "jdbc:sqlite:src/AddFiles/DataBase.db";
 
     public Connection getConnection() throws SQLException {
         /*

@@ -14,6 +14,7 @@ public class CentralPanel extends JPanel {
         wardrobePanel = new WardrobePanel();
         characterPanel = new CharacterPanel();
         wardrobePanel.setVisible(false);
+
         add(wardrobePanel, BorderLayout.WEST);
         add(characterPanel,BorderLayout.CENTER);
     }

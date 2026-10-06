@@ -18,9 +18,10 @@ public class AddClothingPanel extends JPanel {
     private Color selectedColor;
     public int order=0;
     private DbController db = new DbController();
-
-    public AddClothingPanel(){
+    private WardrobeContainerPanel wardrobeContainerPanel;
+    public AddClothingPanel(WardrobeContainerPanel wardrobeContainerPanel){
         //PROPERTIES
+        this.wardrobeContainerPanel=wardrobeContainerPanel;
         setPreferredSize(new Dimension(320,0));
         setBackground(Theme.PANEL);
         setBorder(BorderFactory.createEmptyBorder(25, 20, 25, 20));
@@ -111,10 +112,11 @@ public class AddClothingPanel extends JPanel {
         addButton.addActionListener(e->{
 
             Clothes clothes = new Clothes(order,nameField.getText(),(Category)categoryBox.getSelectedItem(),selectedColor);
-
+            order++;
             boolean saved = db.saveClothes(clothes);
 
             if (saved) {
+                wardrobeContainerPanel.addClothingCard(clothes);
                 JOptionPane.showMessageDialog(this, "Clothing saved!");
             } else {
                 JOptionPane.showMessageDialog(this, "Could not save clothing.");}
