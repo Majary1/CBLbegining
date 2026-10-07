@@ -14,7 +14,10 @@ public class MainFrame extends JFrame {
         final JFrame frame = new JFrame("Dress yourself");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
+
         frame.getContentPane().setBackground(Theme.BACKGROUND);
+
+
 
         //PANELS
 

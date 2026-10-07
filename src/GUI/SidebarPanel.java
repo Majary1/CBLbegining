@@ -49,14 +49,16 @@ public class SidebarPanel extends JPanel {
         Theme.setThemeButton(checkButton);
         Theme.setThemeButton(wardrobeButton);
         Theme.setThemeButton(addClothingButton);
+        addClothingButton.setHorizontalAlignment(SwingConstants.LEFT);
         Theme.setThemeButton(settingsButton);
 
         Theme.activeButton(createButton);
         //set structure
+        add(Box.createVerticalStrut(30));
         add(title);
         add(Box.createVerticalStrut(3));
         add(title2);
-        add(Box.createVerticalStrut(50));
+        add(Box.createVerticalStrut(30));
         add(createButton);
         add(Box.createVerticalStrut(10));
         add(wardrobeButton);

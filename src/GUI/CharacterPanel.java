@@ -22,10 +22,12 @@ public class CharacterPanel extends JPanel {
     private BufferedImage currentAccessories;
     private BufferedImage currentHat;
     private Outfit currentOutfit;
+    private Image background;
     public CharacterPanel(){
         currentOutfit = new Outfit(0);
-        setBackground(Theme.PANEL);
+        setOpaque(false);
         character = loadImage("src/AddFiles/assets/character_base_pixel.png");
+        background = new ImageIcon("src/AddFiles/assets/room.png").getImage();
 
 
     }

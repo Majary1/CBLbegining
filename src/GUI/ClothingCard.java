@@ -42,7 +42,7 @@ public class ClothingCard extends JButton {
             case TOP ->
                     colorChange(loadImage("src/AddFiles/assets/top_crop_sweater_pixel.png"),clothes.getAvarageColor());
             case BOTTOM ->
-                    colorChange(loadImage("src/AddFiles/assets/pants_on.png"),clothes.getAvarageColor());
+                    colorChange(loadImage("src/AddFiles/assets/Kremowe jeansy w stylu pixel art.png"),clothes.getAvarageColor());
             case HAT ->
                     colorChange(loadImage("src/AddFiles/assets/hat_beret_bow_pixel.png"), clothes.getAvarageColor());
             case SHOES ->

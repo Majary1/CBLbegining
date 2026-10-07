@@ -34,7 +34,7 @@ public class AddClothingPanel extends JPanel {
         JLabel title = new JLabel("Add Clothing");
         title.setFont(Theme.TITLE_FONT);
         title.setForeground(Theme.TEXT);
-        title.setAlignmentX(Component.LEFT_ALIGNMENT);
+        title.setHorizontalAlignment(SwingConstants.CENTER);
 
         //NAME
 
@@ -106,9 +106,10 @@ public class AddClothingPanel extends JPanel {
         addButton.setBackground(Theme.ACCENT);
         addButton.setForeground(Color.WHITE);
         addButton.setFont(Theme.BUTTON_FONT);
+        addButton.getFont().deriveFont(20f);
         addButton.setFocusPainted(false);
         addButton.setBorderPainted(false);
-        addButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 80));
+        addButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 100));
         addButton.addActionListener(e->{
 
             Clothes clothes = new Clothes(order,nameField.getText(),(Category)categoryBox.getSelectedItem(),selectedColor);
@@ -125,6 +126,7 @@ public class AddClothingPanel extends JPanel {
         });
 
         //STRUCTURE
+        add(Box.createVerticalStrut(30));
         add(title);
         add(Box.createVerticalStrut(25));
         add(nameLabel);

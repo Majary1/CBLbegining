@@ -2,6 +2,7 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.InputStream;
 
 public class Theme {
 
@@ -31,13 +32,13 @@ public class Theme {
     //FONTS
 
     public static final Font TITLE_FONT =
-            new Font("Monospaced", Font.BOLD, 26);
+           loadFont(20f);
 
     public static final Font BUTTON_FONT =
-            new Font("Monospaced", Font.BOLD, 16);
+           loadFont(10f);
 
     public static final Font NORMAL_FONT =
-            new Font("Monospaced", Font.PLAIN, 15);
+            loadFont(9f);
 
 
 
@@ -59,7 +60,7 @@ public class Theme {
         button.setPreferredSize(LBUTTONS);
         button.setMaximumSize(LBUTTONS);
 
-        button.setHorizontalAlignment(SwingConstants.LEFT);
+        button.setHorizontalAlignment(SwingConstants.CENTER);
 
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -67,5 +68,18 @@ public class Theme {
     public static void activeButton(JButton button){
         button.setBackground(ACCENT);
         button.setForeground(Color.WHITE);
+    }
+    public static Font loadFont(float size){
+        try{
+            InputStream is = Theme.class.getResourceAsStream("/AddFiles/font.ttf");
+            if (is == null) {
+                throw new RuntimeException("Nie znaleziono czcionki");
+            }
+            Font font = Font.createFont(Font.TRUETYPE_FONT,is);
+            return font.deriveFont(size);
+        } catch (Exception e){
+            e.printStackTrace();
+            return new Font("Monospaced", Font.PLAIN, (int)size);
+        }
     }
 }
