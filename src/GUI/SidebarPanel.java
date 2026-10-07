@@ -35,10 +35,14 @@ public class SidebarPanel extends JPanel {
          wardrobeButton = new JButton("▣ Wardrobe");
          addClothingButton = new JButton("＋ Add Clothing");
          checkButton = new JButton("Check");
-         settingsButton = new JButton("⚙ Settings");
          checkButton.addActionListener(e->{
              ColorTheory colorTheory = new ColorTheory();
              colorTheory.check(characterPanel.getCurrentOutfit());
+         });
+         settingsButton = new JButton("⚙ Help");
+         settingsButton.addActionListener(_-> {
+             Window owner = SwingUtilities.getWindowAncestor(this);
+             new SettingsPanel(owner).setVisible(true);
          });
         //Features
         Theme.setThemeButton(createButton);
