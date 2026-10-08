@@ -27,6 +27,7 @@ public class CategoryPanel extends JPanel {
         add(shoesButton);
         add(hatButton);
         add(accessoriesButton);
+        setActive(topButton);
         //Actions
         topButton.addActionListener(e -> {
             setActive(topButton);
@@ -60,6 +61,7 @@ public class CategoryPanel extends JPanel {
         button.setPreferredSize(new Dimension(88, 38));
 
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
 
         return button;
     }
