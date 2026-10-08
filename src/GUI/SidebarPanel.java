@@ -31,15 +31,15 @@ public class SidebarPanel extends JPanel {
         title2.setAlignmentX(Component.CENTER_ALIGNMENT);
         //initialize buttons
 
-        createButton = new JButton("♧ Create");
-         wardrobeButton = new JButton("▣ Wardrobe");
-         addClothingButton = new JButton("＋ Add Clothing");
+        createButton = new JButton("Create");
+         wardrobeButton = new JButton("Wardrobe");
+         addClothingButton = new JButton("Add Clothing");
          checkButton = new JButton("Check");
          checkButton.addActionListener(e->{
              ColorTheory colorTheory = new ColorTheory();
              colorTheory.check(characterPanel.getCurrentOutfit());
          });
-         settingsButton = new JButton("⚙ Help");
+         settingsButton = new JButton("Help");
          settingsButton.addActionListener(_-> {
              Window owner = SwingUtilities.getWindowAncestor(this);
              new SettingsPanel(owner).setVisible(true);
@@ -52,7 +52,7 @@ public class SidebarPanel extends JPanel {
         addClothingButton.setHorizontalAlignment(SwingConstants.LEFT);
         Theme.setThemeButton(settingsButton);
 
-        Theme.activeButton(createButton);
+
         //set structure
         add(Box.createVerticalStrut(30));
         add(title);
@@ -75,6 +75,17 @@ public class SidebarPanel extends JPanel {
     }
     public JButton getWardrobeButton(){
         return wardrobeButton;
+    }
+    public JButton getCreateButton(){
+        return createButton;
+    }
+    public JButton setActiveCreatButton(){
+        Theme.activeButton(createButton);
+        return createButton;
+    }
+    public JButton deActiveCreatButton(){
+        Theme.setThemeButton(createButton);
+        return createButton;
     }
     public JButton setActiveAddClothingButton(){
         Theme.activeButton(addClothingButton);

@@ -50,7 +50,7 @@ public class CategoryPanel extends JPanel {
 
         JButton button = new JButton(text);
         button.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY,1));
-        button.setFont(new Font("Monospaced", Font.BOLD, 13));
+        button.setFont(Theme.BUTTON_FONT);
         button.setForeground(Theme.TEXT);
         button.setBackground(Theme.ACCENT_LIGHT);
 

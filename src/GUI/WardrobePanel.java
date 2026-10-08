@@ -39,6 +39,7 @@ public class WardrobePanel extends JPanel {
         add(topPanel,BorderLayout.NORTH);
         add(wardrobeContainerPanel, BorderLayout.CENTER);
         setupListeners();
+        showClothesFromCategory(Category.TOP);
 
     }
     public WardrobeContainerPanel getWardrobeContainerPanel(){

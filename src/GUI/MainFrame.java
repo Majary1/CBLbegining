@@ -29,29 +29,54 @@ public class MainFrame extends JFrame {
         WardrobeContainerPanel wardrobeContainerPanel = wardrobePanel.getWardrobeContainerPanel();
         AddClothingPanel addclothingPanel = new AddClothingPanel(wardrobeContainerPanel);
         addclothingPanel.setVisible(false);
-        sidebarPanel.getAddClothingButton().addActionListener(e->{
-            boolean isVisible = addclothingPanel.isVisible();
-            addclothingPanel.setVisible(!isVisible);
-            if(addclothingPanel.isVisible()){
-                sidebarPanel.setActiveAddClothingButton();
-            } else {
+        characterPanel.setVisible(false);
+        sidebarPanel.getCreateButton().addActionListener(e->{
+            boolean isVisible = characterPanel.isVisible();
+            characterPanel.setVisible(!isVisible);
+            if(characterPanel.isVisible()){
+                sidebarPanel.setActiveCreatButton();
+            } else{
+                sidebarPanel.deActiveCreatButton();
+                wardrobePanel.setVisible(false);
+                addclothingPanel.setVisible(false);
                 sidebarPanel.deActiveAddClothingButton();
-            }
-            frame.revalidate();
-            frame.repaint();
-        });
-        sidebarPanel.getWardrobeButton().addActionListener(e->{
-            //WardrobePanel wardrobePanel = centralPanel.getWardrobePanel();
-            boolean isVisibel = wardrobePanel.isVisible();
-            wardrobePanel.setVisible(!isVisibel);
-            if(wardrobePanel.isVisible()){
-                sidebarPanel.setActiveWardrobeButton();
-            } else {
                 sidebarPanel.deActiveWardrobeButton();
             }
-            frame.revalidate();
-            frame.repaint();
         });
+
+            sidebarPanel.getAddClothingButton().addActionListener(e->{
+                if(!characterPanel.isVisible()){
+                    JOptionPane.showMessageDialog(null,"Press Creat Button first");
+                    return;
+                }
+                boolean isVisible = addclothingPanel.isVisible();
+                addclothingPanel.setVisible(!isVisible);
+                if(addclothingPanel.isVisible()){
+                    sidebarPanel.setActiveAddClothingButton();
+                } else {
+                    sidebarPanel.deActiveAddClothingButton();
+                }
+                frame.revalidate();
+                frame.repaint();
+            });
+            sidebarPanel.getWardrobeButton().addActionListener(e->{
+                //WardrobePanel wardrobePanel = centralPanel.getWardrobePanel();
+                if(!characterPanel.isVisible()){
+                    JOptionPane.showMessageDialog(null,"Press Creat Button first");
+                    return;
+                }
+                boolean isVisibel = wardrobePanel.isVisible();
+                wardrobePanel.setVisible(!isVisibel);
+                if(wardrobePanel.isVisible()){
+                    sidebarPanel.setActiveWardrobeButton();
+                } else {
+                    sidebarPanel.deActiveWardrobeButton();
+                }
+                frame.revalidate();
+                frame.repaint();
+            });
+
+
         frame.add(sidebarPanel,BorderLayout.WEST);
         frame.add(centralPanel,BorderLayout.CENTER);
         frame.add(addclothingPanel,BorderLayout.EAST);

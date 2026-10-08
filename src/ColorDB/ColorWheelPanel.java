@@ -133,7 +133,7 @@ public class ColorWheelPanel extends JPanel {
             }
         }
         if (selectedX >= 0 && selectedY >= 0) {
-            g.setColor(Color.BLACK);
+            g.setColor(Color.WHITE);
 
             g.drawOval(selectedX, selectedY, 10, 10);
         }

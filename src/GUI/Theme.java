@@ -40,7 +40,8 @@ public class Theme {
     public static final Font NORMAL_FONT =
             loadFont(9f);
 
-
+    public static final Font BUTTON1_FONT =
+            loadFont(15f);
 
     //Dimensions
 

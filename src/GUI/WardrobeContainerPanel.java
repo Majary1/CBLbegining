@@ -12,7 +12,7 @@ public class WardrobeContainerPanel extends JPanel {
     public WardrobeContainerPanel(CharacterPanel characterPanel){
         this.characterPanel = characterPanel;
         setLayout(new BorderLayout());
-        setBackground(Theme.BACKGROUND);
+        setBackground(Theme.SIDEBAR);
         setBorder(null);
         containerPanel = new JPanel();
         containerPanel.setLayout(new GridLayout(0,2,5,5));

@@ -22,13 +22,15 @@ public class CharacterPanel extends JPanel {
     private BufferedImage currentAccessories;
     private BufferedImage currentHat;
     private Outfit currentOutfit;
+    private BufferedImage characterClosed;
     private Image background;
     public CharacterPanel(){
         currentOutfit = new Outfit(0);
         setOpaque(false);
         character = loadImage("src/AddFiles/assets/character_base_pixel.png");
+        characterClosed = loadImage("src/AddFiles/assets/eyesclosed.png");
         background = new ImageIcon("src/AddFiles/assets/room.png").getImage();
-
+        startBlinking();
 
     }
     @Override
@@ -56,6 +58,23 @@ public class CharacterPanel extends JPanel {
        }
 
 
+
+    }
+    private void startBlinking(){
+        BufferedImage save = character;
+        Timer blink = new Timer(6000,e->{
+            character=characterClosed;
+            revalidate();
+            repaint();
+            Timer reopen = new Timer(150,ev->{
+                character=save;
+                revalidate();
+                repaint();
+            });
+            reopen.setRepeats(false);
+            reopen.start();
+        });
+        blink.start();
 
     }
     public void setIconByCategory(Category category,Color selectedColor){
