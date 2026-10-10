@@ -5,6 +5,7 @@ import Obj.Outfit;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -24,11 +25,12 @@ public class CharacterPanel extends JPanel {
     private Outfit currentOutfit;
     private BufferedImage characterClosed;
     private Image background;
+    private int[][] dimensions;
     public CharacterPanel(){
         currentOutfit = new Outfit(0);
         setOpaque(false);
         character = loadImage("src/AddFiles/assets/character_base_pixel.png");
-        characterClosed = loadImage("src/AddFiles/assets/eyesclosed.png");
+        characterClosed = loadImage("src/AddFiles/assets/blink.png");
         background = new ImageIcon("src/AddFiles/assets/room.png").getImage();
         startBlinking();
 
@@ -42,6 +44,7 @@ public class CharacterPanel extends JPanel {
         g.drawImage(character,x,y, WIDTH, LENGTH,null);
         if(currentShoes!=null){
             g.drawImage(currentShoes,x,y, WIDTH, LENGTH,null);
+
         }
         if(currentBottom!=null){
             g.drawImage(currentBottom,x,y, WIDTH, LENGTH,null);
@@ -54,9 +57,8 @@ public class CharacterPanel extends JPanel {
            g.drawImage(currentHat,x,y, WIDTH, LENGTH,null);
        }
        if(currentAccessories!=null){
-           g.drawImage(currentAccessories,x,y, WIDTH, LENGTH,null);
+           g.drawImage(currentAccessories, x, y, WIDTH, LENGTH, null);
        }
-
 
 
     }
@@ -98,6 +100,14 @@ private BufferedImage loadImage(String path) {
 }
 public Outfit getCurrentOutfit(){
         return currentOutfit;
+}
+public void Reset(){
+        currentHat=null;
+        currentAccessories = null;
+        currentShoes = null;
+        currentBottom = null;
+        currentTop = null;
+        currentOutfit.partsOfOutfit.clear();
 }
 }
 

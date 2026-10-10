@@ -29,7 +29,7 @@ public class WardrobePanel extends JPanel {
 
 
         categoryPanel = new CategoryPanel();
-        wardrobeContainerPanel = new WardrobeContainerPanel(characterPanel);
+        wardrobeContainerPanel = new WardrobeContainerPanel(characterPanel,categoryPanel);
         JPanel topPanel = new JPanel();
         topPanel.setBackground(Theme.PANEL);
         topPanel.setLayout(new BorderLayout());

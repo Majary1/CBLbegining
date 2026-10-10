@@ -37,6 +37,7 @@ public class ClothingCard extends JButton {
 
 
     }
+
     public BufferedImage getImageforCategory(Clothes clothes){
         return switch(clothes.getCategory()){
             case TOP ->

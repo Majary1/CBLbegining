@@ -1,5 +1,7 @@
 package GUI;
 
+import Obj.Category;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,6 +14,7 @@ public class CategoryPanel extends JPanel {
     private JButton bottomButton;
     private JButton accessoriesButton;
     private JButton hatButton;
+    private Category currentCategory;
 
     public CategoryPanel() {
         setLayout(new GridLayout(2,3,10,10));
@@ -31,21 +34,28 @@ public class CategoryPanel extends JPanel {
         //Actions
         topButton.addActionListener(e -> {
             setActive(topButton);
+            currentCategory = Category.TOP;
         });
         bottomButton.addActionListener(e -> {
             setActive(bottomButton);
+            currentCategory = Category.BOTTOM;
         });
         hatButton.addActionListener(e -> {
             setActive(hatButton);
+            currentCategory = Category.HAT;
         });
         shoesButton.addActionListener(e -> {
             setActive(shoesButton);
+            currentCategory = Category.SHOES;
         });
         accessoriesButton.addActionListener(e -> {
             setActive(accessoriesButton);
+            currentCategory = Category.ACCESSORY;
         });
     }
-
+    public Category getCurrentCategory(){
+        return currentCategory;
+    }
     private JButton createCategoryButton(String text) {
 
         JButton button = new JButton(text);

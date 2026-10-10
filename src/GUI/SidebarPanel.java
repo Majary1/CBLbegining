@@ -12,6 +12,7 @@ public class SidebarPanel extends JPanel {
     private JButton checkButton;
     private JButton settingsButton;
     private CharacterPanel characterPanel;
+    private JButton resetButton;
 
     public SidebarPanel(CharacterPanel characterPanel){
         this.characterPanel = characterPanel;
@@ -44,6 +45,12 @@ public class SidebarPanel extends JPanel {
              Window owner = SwingUtilities.getWindowAncestor(this);
              new SettingsPanel(owner).setVisible(true);
          });
+
+         resetButton = new JButton("Reset");
+         resetButton.addActionListener(e->{
+             characterPanel.Reset();
+         });
+
         //Features
         Theme.setThemeButton(createButton);
         Theme.setThemeButton(checkButton);
@@ -51,7 +58,7 @@ public class SidebarPanel extends JPanel {
         Theme.setThemeButton(addClothingButton);
         addClothingButton.setHorizontalAlignment(SwingConstants.LEFT);
         Theme.setThemeButton(settingsButton);
-
+        Theme.setThemeButton(resetButton);
 
         //set structure
         add(Box.createVerticalStrut(30));
@@ -66,6 +73,8 @@ public class SidebarPanel extends JPanel {
         add(addClothingButton);
         add(Box.createVerticalStrut(10));
         add(checkButton);
+        add(Box.createVerticalStrut(10));
+        add(resetButton);
         add(Box.createVerticalGlue());
         add(settingsButton);
 
