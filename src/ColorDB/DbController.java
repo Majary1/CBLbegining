@@ -9,6 +9,7 @@ import java.util.List;
 public class DbController {
     String url = "jdbc:sqlite:src/AddFiles/DataBase.db";
 
+
     public Connection getConnection() throws SQLException {
         /*
         Connection connection = DriverManager.getConnection(url);
@@ -36,7 +37,6 @@ public class DbController {
         return connection;
     }
 
-/*
 // This fnuction is not needed yet in case it is would be in a future it is left written here!
     public void initSchema(){
         String clothes = "CREATE TABLE IF NOT EXISTS Clothes ("
@@ -45,7 +45,7 @@ public class DbController {
                 + "category TEXT NOT NULL, "
                 + "color INTEGER)";
 
-        String outfits = "CREATE TABLE IF NOT EXISTS Clothes ("
+        String outfits = "CREATE TABLE IF NOT EXISTS Outfits ("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + "name TEXT NOT NULL, "
                 + "Category TEXT NOT NULL, "
@@ -59,7 +59,7 @@ public class DbController {
             System.err.println("Could not create a table" + e.getMessage());
         }
     }
- */
+
 
     public Clothes findPieceOfClothnigByID(int id){
         String sql = "SELECT ID, NAME, CATEGORY, COLOR FROM CLOTHES WHERE ID = ?";
@@ -107,16 +107,14 @@ public class DbController {
     }
 
     public boolean saveClothes(Clothes clothes){
-        String sql = "INSERT INTO CLOTHES (ID, NAME, CATEGORY, COLOR) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO CLOTHES (NAME, CATEGORY, COLOR) VALUES (?, ?, ?)";
         try(Connection c = getConnection();
             PreparedStatement ps = c.prepareStatement(sql)) {
-
-            ps.setInt(1, clothes.getId());
-            ps.setString(2, clothes.getName());
-            ps.setString(3, clothes.getCategory().name());
+            ps.setString(1, clothes.getName());
+            ps.setString(2, clothes.getCategory().name());
             //we change the format to r,g,b not some strange idk
             Color avarageColor = clothes.getAvarageColor();
-            ps.setString(4, avarageColor.getRed()+","+ avarageColor.getGreen()+","+avarageColor.getBlue());
+            ps.setString(3, avarageColor.getRed()+","+ avarageColor.getGreen()+","+avarageColor.getBlue());
 
             return ps.executeUpdate() == 1;
         } catch (SQLException e){

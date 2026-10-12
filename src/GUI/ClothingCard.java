@@ -16,7 +16,12 @@ public class ClothingCard extends JButton {
     private JLabel image;
     private JLabel nameLabel;
     private CharacterPanel characterPanel;
-    public ClothingCard(Clothes clothes,int width){
+    private final int clothesID;
+    private final JButton deleteButton;
+    public ClothingCard(Clothes clothes, int width){
+        clothesID = clothes.getId();
+        deleteButton = new JButton("X");
+
         setLayout(new BorderLayout());
         setBackground(Theme.PANEL);
         setBorder(BorderFactory.createLineBorder(Theme.BORDER,1));
@@ -34,8 +39,19 @@ public class ClothingCard extends JButton {
         add(image, BorderLayout.CENTER);
 
 
+        deleteButton.setPreferredSize(new Dimension(25, 25));
 
+        deleteButton.setBackground(Theme.ACCENT);
+        deleteButton.setForeground(Color.WHITE);
+        deleteButton.setFocusPainted(false);
+        deleteButton.setMargin(new Insets(0, 0, 0, 0));
 
+        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 5));
+        topPanel.setOpaque(false);
+
+        topPanel.add(deleteButton);
+
+        add(topPanel, BorderLayout.NORTH);
     }
 
     public BufferedImage getImageforCategory(Clothes clothes){
@@ -60,4 +76,11 @@ public class ClothingCard extends JButton {
         }
     }
 
+    public int getID() {
+        return clothesID;
+    }
+
+    public JButton getDeleteButton() {
+        return deleteButton;
+    }
 }
