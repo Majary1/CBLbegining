@@ -114,7 +114,6 @@ public void Reset(){
 
         Category categoryToRemove = null;
 
-        // Find the clothing item by its database ID
         for (Clothes clothes : currentOutfit.getPartsOfOutfit()) {
 
             if (clothes.getId() == clothingId) {
@@ -123,17 +122,14 @@ public void Reset(){
             }
         }
 
-        // The deleted item is not currently worn
         if (categoryToRemove == null) {
             return;
         }
 
-        // Remove the clothing item from the outfit
         currentOutfit.getPartsOfOutfit().removeIf(
                 clothes -> clothes.getId() == clothingId
         );
 
-        // Clear its image from the character
         switch (categoryToRemove) {
 
             case TOP -> currentTop = null;
@@ -146,8 +142,6 @@ public void Reset(){
 
             case ACCESSORY -> currentAccessories = null;
         }
-
-        // Update the character display
         repaint();
     }
 }

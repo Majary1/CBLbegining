@@ -40,8 +40,6 @@ public class WardrobeContainerPanel extends JPanel {
             characterPanel.getCurrentOutfit().addClothToOutfit(clothes);
 
             card.getDeleteButton().addActionListener(_ -> {
-
-                // NEW: Ask for confirmation
                 int answer = JOptionPane.showConfirmDialog(
                         this,
                         "Are you sure you want to delete "
@@ -51,19 +49,12 @@ public class WardrobeContainerPanel extends JPanel {
                         JOptionPane.WARNING_MESSAGE
                 );
 
-                // NEW: Only delete if user clicks YES
                 if (answer == JOptionPane.YES_OPTION) {
-
-                    // NEW: Prevent clicking delete twice
                     card.getDeleteButton().setEnabled(false);
-
-                    // NEW: Delete from SQLite in a background thread
                     new SwingWorker<Boolean, Void>() {
 
                         @Override
                         protected Boolean doInBackground() {
-
-                            // This method already exists in DbController
                             return db.deleteClothing(clothes.getId());
                         }
 
@@ -74,23 +65,14 @@ public class WardrobeContainerPanel extends JPanel {
                                 boolean deleted = get();
 
                                 if (deleted) {
-
-                                    // NEW: Remove deleted clothing
-                                    // from the current outfit
                                     characterPanel.removeClothingById(
                                             clothes.getId()
                                     );
-
-                                    // NEW: Remove the card from the wardrobe
                                     containerPanel.remove(card);
-
-                                    // NEW: Refresh the display
                                     containerPanel.revalidate();
                                     containerPanel.repaint();
 
                                 } else {
-
-                                    // NEW: Show error if database deletion fails
                                     JOptionPane.showMessageDialog(
                                             WardrobeContainerPanel.this,
                                             "Could not delete clothing.",
@@ -102,8 +84,6 @@ public class WardrobeContainerPanel extends JPanel {
                                 }
 
                             } catch (Exception ex) {
-
-                                // NEW: Handle unexpected errors
                                 JOptionPane.showMessageDialog(
                                         WardrobeContainerPanel.this,
                                         "Database error: " + ex.getMessage(),
@@ -119,7 +99,6 @@ public class WardrobeContainerPanel extends JPanel {
             });
         });
         containerPanel.add(card);
-
         containerPanel.revalidate();
         containerPanel.repaint();
     }

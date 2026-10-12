@@ -121,14 +121,10 @@ public class AddClothingPanel extends JPanel {
                 return;
             }
 
-            // NEW: Use white if no color has been selected.
             Color color = selectedColor != null
                     ? selectedColor
                     : Color.WHITE;
 
-            // CHANGED: No longer manually generate clothing IDs.
-            // The database will assign the real ID when saving.
-            // The value 0 is only a temporary placeholder.
             Clothes clothes = new Clothes(
                     0,
                     name,
