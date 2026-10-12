@@ -1,5 +1,6 @@
 package GUI;
 import Obj.Category;
+import Obj.Clothes;
 import Obj.Outfit;
 
 import javax.imageio.ImageIO;
@@ -109,5 +110,45 @@ public void Reset(){
         currentTop = null;
         currentOutfit.partsOfOutfit.clear();
 }
+    public void removeClothingById(int clothingId) {
+
+        Category categoryToRemove = null;
+
+        // Find the clothing item by its database ID
+        for (Clothes clothes : currentOutfit.getPartsOfOutfit()) {
+
+            if (clothes.getId() == clothingId) {
+                categoryToRemove = clothes.getCategory();
+                break;
+            }
+        }
+
+        // The deleted item is not currently worn
+        if (categoryToRemove == null) {
+            return;
+        }
+
+        // Remove the clothing item from the outfit
+        currentOutfit.getPartsOfOutfit().removeIf(
+                clothes -> clothes.getId() == clothingId
+        );
+
+        // Clear its image from the character
+        switch (categoryToRemove) {
+
+            case TOP -> currentTop = null;
+
+            case BOTTOM -> currentBottom = null;
+
+            case HAT -> currentHat = null;
+
+            case SHOES -> currentShoes = null;
+
+            case ACCESSORY -> currentAccessories = null;
+        }
+
+        // Update the character display
+        repaint();
+    }
 }
 

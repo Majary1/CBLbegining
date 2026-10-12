@@ -38,6 +38,7 @@ public class DbController {
     }
 
 // This fnuction is not needed yet in case it is would be in a future it is left written here!
+    /*
     public void initSchema(){
         String clothes = "CREATE TABLE IF NOT EXISTS Clothes ("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -59,6 +60,8 @@ public class DbController {
             System.err.println("Could not create a table" + e.getMessage());
         }
     }
+
+     */
 
 
     public Clothes findPieceOfClothnigByID(int id){
