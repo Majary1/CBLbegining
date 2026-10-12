@@ -1,5 +1,8 @@
 package GUI;
 
+import Obj.Category;
+import Obj.Clothes;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.InputStream;
@@ -84,3 +87,7 @@ public class Theme {
         }
     }
 }
+
+
+
+

@@ -10,6 +10,7 @@ public class BrightnessSlider extends JSlider{
         setMaximumSize(new Dimension(Integer.MAX_VALUE, 45));
          setAlignmentX(Component.LEFT_ALIGNMENT);
          setOpaque(false);
+         addChangeListener(e-> repaint());
 
     }
     @Override
@@ -30,7 +31,7 @@ public class BrightnessSlider extends JSlider{
         g2.setColor(Color.DARK_GRAY);
         g2.drawRoundRect(x,y,trackWidth,heigh,16,16);
 
-        int thumbSize = 14;
+        int thumbSize = 16;
         float percentage = (float) (getValue() - getMinimum()) / (getMaximum() - getMinimum());
 
         int minY = y + thumbSize / 2;
@@ -38,9 +39,9 @@ public class BrightnessSlider extends JSlider{
         int thumbY = minY + (int) ((1 - percentage) * (maxY-minY));
         int thumbX = (getWidth() - thumbSize) / 2;
         g2.setColor(Color.WHITE);
-        g2.fillOval(thumbX, thumbY - thumbSize / 2, thumbSize, thumbSize);
+        g2.fillRect(thumbX, thumbY - thumbSize / 2, thumbSize, thumbSize);
         g2.setColor(Color.DARK_GRAY);
-        g2.drawOval(thumbX, thumbY - thumbSize / 2, thumbSize, thumbSize);
+        g2.drawRect(thumbX, thumbY - thumbSize / 2, thumbSize, thumbSize);
 
     }
 

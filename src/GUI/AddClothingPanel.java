@@ -1,115 +1,201 @@
 package GUI;
+
 import ColorDB.ColorWheelPanel;
+import ColorDB.DbController;
 import Obj.Category;
 import Obj.Clothes;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import ColorDB.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import static ColorDB.ColorChanger.colorChange;
 
 public class AddClothingPanel extends JPanel {
+
     private JTextField nameField;
     private JComboBox<Category> categoryBox;
     private ColorWheelPanel colorWheelPanel;
     private JPanel colorPreview;
     private JSlider brightnessSlider;
-    private JButton colorButton;
     private JButton addButton;
     private Color selectedColor;
+
+    public int order = 0;
+
     private DbController db = new DbController();
     private WardrobeContainerPanel wardrobeContainerPanel;
-    public AddClothingPanel(WardrobeContainerPanel wardrobeContainerPanel){
-        //PROPERTIES
-        this.wardrobeContainerPanel=wardrobeContainerPanel;
-        setPreferredSize(new Dimension(320,0));
-        setBackground(Theme.PANEL);
-        setBorder(BorderFactory.createEmptyBorder(25, 20, 25, 20));
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY,2));
-        //setBorder(BorderFactory.createEmptyBorder(0,5,0,5));
+    private JLabel clothingPreview;
 
-        //TITLE
+    public AddClothingPanel(WardrobeContainerPanel wardrobeContainerPanel) {
+
+        this.wardrobeContainerPanel = wardrobeContainerPanel;
+
+        // MAIN PANEL
+        setPreferredSize(new Dimension(380, 0));
+        setBackground(Theme.PANEL);
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.DARK_GRAY, 2),
+                BorderFactory.createEmptyBorder(25, 25, 25, 25)
+        ));
+
+        // TITLE
+        JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        titlePanel.setOpaque(false);
+        titlePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         JLabel title = new JLabel("Add Clothing");
         title.setFont(Theme.TITLE_FONT);
         title.setForeground(Theme.TEXT);
-        title.setHorizontalAlignment(SwingConstants.CENTER);
 
-        //NAME
+        titlePanel.add(title);
 
-        JLabel nameLabel = createLabel("Name");
-        nameField = new JTextField();
-        nameField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
-        nameField.setFont(Theme.NORMAL_FONT);
-        nameField.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-
-        //CATEGORY
-
-        JLabel categoryLabel = createLabel("Category");
-        Category[] categories = new Category[0];
+        // CATEGORY BOX
         categoryBox = new JComboBox<>(Category.values());
-        categoryBox.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
         categoryBox.setFont(Theme.NORMAL_FONT);
+        categoryBox.setMaximumSize(new Dimension(Integer.MAX_VALUE, 38));
+        categoryBox.setPreferredSize(new Dimension(170, 38));
         categoryBox.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        //COLOR Section
+        // CLOTHING DETAILS SECTION
+        JPanel second = new JPanel(new BorderLayout(20, 0));
+        second.setOpaque(false);
+        second.setAlignmentX(Component.LEFT_ALIGNMENT);
+        second.setMaximumSize(new Dimension(Integer.MAX_VALUE, 190));
 
-        JLabel colorLabel = createLabel("Color");
+        // CLOTHING PREVIEW
+        JPanel preview = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        preview.setOpaque(false);
+        preview.setPreferredSize(new Dimension(145, 175));
+
+        clothingPreview = setPreview((Category) categoryBox.getSelectedItem(), Color.WHITE);
+        preview.add(clothingPreview);
+
+        // NAME + CATEGORY PANEL
+        JPanel nameCategory = new JPanel();
+        nameCategory.setLayout(new BoxLayout(nameCategory, BoxLayout.Y_AXIS));
+        nameCategory.setOpaque(false);
+
+        JLabel nameLabel = createLabel("Name");
+
+        nameField = new JTextField();
+        nameField.setFont(Theme.NORMAL_FONT);
+        nameField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 38));
+        nameField.setPreferredSize(new Dimension(170, 38));
+        nameField.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        JLabel categoryLabel = createLabel("Category");
+
+        nameCategory.add(Box.createVerticalStrut(10));
+        nameCategory.add(nameLabel);
+        nameCategory.add(Box.createVerticalStrut(7));
+        nameCategory.add(nameField);
+        nameCategory.add(Box.createVerticalStrut(20));
+        nameCategory.add(categoryLabel);
+        nameCategory.add(Box.createVerticalStrut(7));
+        nameCategory.add(categoryBox);
+
+        second.add(preview, BorderLayout.WEST);
+        second.add(nameCategory, BorderLayout.CENTER);
+
+        // CHOOSE COLOR
+        JLabel colorLabel = createLabel("Choose color:");
+        colorLabel.setFont(Theme.BUTTON1_FONT);
+
+
+        // COLOR WHEEL
         colorWheelPanel = new ColorWheelPanel();
         colorWheelPanel.setPreferredSize(new Dimension(200, 200));
         colorWheelPanel.setMaximumSize(new Dimension(200, 200));
 
-
-        //PREVIEW PLACE
-
+        // COLOR PREVIEW
         colorPreview = new JPanel();
-        colorPreview.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY,1));
-        colorPreview.setPreferredSize(new Dimension(70, 70));
-        colorPreview.setMaximumSize(new Dimension(70, 70));
+        colorPreview.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 1));
+        colorPreview.setPreferredSize(new Dimension(Integer.MAX_VALUE, 55));
+        colorPreview.setMaximumSize(new Dimension(Integer.MAX_VALUE, 55));
         colorPreview.setBackground(Color.WHITE);
+        colorPreview.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        colorWheelPanel.addPropertyChangeListener(
-                "actualColor",
-                e -> {
-                    selectedColor = (Color) e.getNewValue();
-                    colorPreview.setBackground(selectedColor);
-                }
-        );
-        //BRIGHTNESS
+        // BRIGHTNESS
 
-        brightnessSlider = new JSlider(0, 100, 100);
-        brightnessSlider.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
-       brightnessSlider.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        brightnessSlider = new BrightnessSlider();
+        brightnessSlider.setMaximumSize(new Dimension(60, Integer.MAX_VALUE));
+        brightnessSlider.setAlignmentX(Component.LEFT_ALIGNMENT);
+
         brightnessSlider.addChangeListener(e -> {
-                    float brightness = brightnessSlider.getValue() / 100.0f;
-                    colorWheelPanel.setBrightness(brightness);
-                }
-        );
+            float brightness = brightnessSlider.getValue() / 100.0f;
+            colorWheelPanel.setBrightness(brightness);
+        });
+
+        // RIGHT SIDE OF COLOR SECTION
+        JPanel colorOptions = new JPanel();
+        colorOptions.setLayout(new BoxLayout(colorOptions, BoxLayout.Y_AXIS));
+        colorOptions.setOpaque(false);
+
+        colorOptions.add(Box.createVerticalStrut(25));
+
+        colorOptions.add(brightnessSlider);
+
+        JLabel selectedColorLabel = createLabel("Selected color:");
+        selectedColorLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
 
-        //MAIN COLOR PANEL
-        JPanel colorSection = new JPanel();
+
+        // MAIN COLOR SECTION
+        JPanel colorSection = new JPanel(new BorderLayout(20, 0));
         colorSection.setOpaque(false);
-        colorSection.setLayout(new BoxLayout(colorSection,BoxLayout.X_AXIS));
         colorSection.setAlignmentX(Component.LEFT_ALIGNMENT);
+        colorSection.setMaximumSize(new Dimension(Integer.MAX_VALUE, 220));
 
-        colorSection.add(colorWheelPanel);
-        colorSection.add(Box.createHorizontalStrut(15));
-        colorSection.add(colorPreview);
+        colorSection.add(colorWheelPanel, BorderLayout.WEST);
+        colorSection.add(colorOptions, BorderLayout.CENTER);
 
+        // COLOR CHANGE LISTENER
+        colorWheelPanel.addPropertyChangeListener("actualColor", e -> {
+            selectedColor = (Color) e.getNewValue();
+            colorPreview.setBackground(selectedColor);
 
-        //ADD BUTTON
+            preview.removeAll();
+            clothingPreview = setPreview((Category) categoryBox.getSelectedItem(), selectedColor);
+            preview.add(clothingPreview);
+            preview.revalidate();
+            preview.repaint();
+        });
 
+        // CATEGORY CHANGE LISTENER
+        categoryBox.addActionListener(e -> {
+            Color previewColor;
+
+            if (selectedColor != null) {
+                previewColor = selectedColor;
+            } else {
+                previewColor = Color.WHITE;
+            }
+
+            preview.removeAll();
+            clothingPreview = setPreview((Category) categoryBox.getSelectedItem(), previewColor);
+            preview.add(clothingPreview);
+            preview.revalidate();
+            preview.repaint();
+        });
+
+        // ADD BUTTON
         addButton = new JButton("+ Add to wardrobe");
         addButton.setBackground(Theme.ACCENT);
         addButton.setForeground(Color.WHITE);
         addButton.setFont(Theme.BUTTON_FONT);
-        addButton.getFont().deriveFont(20f);
         addButton.setFocusPainted(false);
         addButton.setBorderPainted(false);
-        addButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 100));
-        addButton.addActionListener(e->{
+        addButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+        addButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 55));
+        addButton.setPreferredSize(new Dimension(300, 55));
+
+        addButton.addActionListener(e -> {
 
             String name = nameField.getText().trim();
 
@@ -125,45 +211,33 @@ public class AddClothingPanel extends JPanel {
                     ? selectedColor
                     : Color.WHITE;
 
-            Clothes clothes = new Clothes(
-                    0,
-                    name,
-                    (Category) categoryBox.getSelectedItem(),
-                    color);
-
+            Clothes clothes = new Clothes(order, nameField.getText(), (Category) categoryBox.getSelectedItem(), selectedColor);
+            order++;
             boolean saved = db.saveClothes(clothes);
-
             if (saved) {
-                wardrobeContainerPanel.addClothingCard(clothes);
                 JOptionPane.showMessageDialog(this, "Clothing saved!");
             } else {
-                JOptionPane.showMessageDialog(this, "Could not save clothing.");}
-
-
+                JOptionPane.showMessageDialog(this, "Could not save clothing.");
+            }
         });
 
-        //STRUCTURE
+        // FINAL STRUCTURE
+        add(titlePanel);
+        add(second);
         add(Box.createVerticalStrut(30));
-        add(title);
-        add(Box.createVerticalStrut(25));
-        add(nameLabel);
-        add(Box.createVerticalStrut(5));
-        add(nameField);
-        add(Box.createVerticalStrut(15));
-        add(categoryLabel);
-        add(Box.createVerticalStrut(5));
-        add(categoryBox);
-        add(Box.createVerticalStrut(15));
         add(colorLabel);
-        add(Box.createVerticalStrut(10));
+        add(Box.createVerticalStrut(12));
         add(colorSection);
+        add(Box.createVerticalStrut(12));
+        add(selectedColorLabel);
         add(Box.createVerticalStrut(5));
-        add(brightnessSlider);
+        add(colorPreview);
         add(Box.createVerticalGlue());
+        add(Box.createVerticalStrut(25));
         add(addButton);
-        add(Box.createVerticalStrut(50));
-
+        add(Box.createVerticalStrut(10));
     }
+
     private JLabel createLabel(String text) {
         JLabel label = new JLabel(text);
         label.setFont(Theme.BUTTON_FONT);
@@ -171,5 +245,55 @@ public class AddClothingPanel extends JPanel {
         label.setAlignmentX(Component.LEFT_ALIGNMENT);
         return label;
     }
+
+    public BufferedImage getImageforCategory(Category category, Color selectedColor) {
+        return switch (category) {
+            case TOP -> colorChange(
+                    loadImage("src/AddFiles/assets/top_crop_sweater_pixel.png"),
+                    selectedColor
+            );
+
+            case BOTTOM -> colorChange(
+                    loadImage("src/AddFiles/assets/Kremowe jeansy w stylu pixel art.png"),
+                    selectedColor
+            );
+
+            case HAT -> colorChange(
+                    loadImage("src/AddFiles/assets/hat_beret_bow_pixel.png"),
+                    selectedColor
+            );
+
+            case SHOES -> colorChange(
+                    loadImage("src/AddFiles/assets/shoes_chunky_sneakers_pixel.png"),
+                    selectedColor
+            );
+
+            case ACCESSORY -> colorChange(
+                    loadImage("src/AddFiles/assets/accessory_necklace_bow_gem_pixel.png"),
+                    selectedColor
+            );
+        };
+    }
+
+    private BufferedImage loadImage(String path) {
+        try {
+            return ImageIO.read(new File(path));
+        } catch (IOException e) {
+            throw new RuntimeException("Could not load image: " + path, e);
+        }
+    }
+
+    private JLabel setPreview(Category category, Color color) {
+        BufferedImage bufferedImage = getImageforCategory(category, color);
+        Image previewCloth = bufferedImage.getScaledInstance(120, 160, Image.SCALE_SMOOTH);
+        ImageIcon icon = new ImageIcon(previewCloth);
+
+        JLabel image = new JLabel();
+        image.setHorizontalAlignment(SwingConstants.CENTER);
+        image.setIcon(icon);
+
+        return image;
+    }
 }
+
 
