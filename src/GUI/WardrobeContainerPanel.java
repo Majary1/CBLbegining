@@ -33,12 +33,12 @@ public class WardrobeContainerPanel extends JPanel {
         ClothingCard card = new ClothingCard(clothes, getWidth());
         card.addActionListener(e -> {
 
-            characterPanel.setIconByCategory(clothes.getCategory(), clothes.getAvarageColor());
-            if (characterPanel.getCurrentOutfit().isThisCategoryInOutfit(clothes)) {
-                characterPanel.getCurrentOutfit().removeByCategory(clothes.getCategory());
-            }
-            characterPanel.getCurrentOutfit().addClothToOutfit(clothes);
-
+                    characterPanel.setIconByCategory(clothes.getCategory(), clothes.getAvarageColor());
+                    if (characterPanel.getCurrentOutfit().isThisCategoryInOutfit(clothes)) {
+                        characterPanel.getCurrentOutfit().removeByCategory(clothes.getCategory());
+                    }
+                    characterPanel.getCurrentOutfit().addClothToOutfit(clothes);
+                });
             card.getDeleteButton().addActionListener(_ -> {
                 int answer = JOptionPane.showConfirmDialog(
                         this,
@@ -97,7 +97,6 @@ public class WardrobeContainerPanel extends JPanel {
                     }.execute();
                 }
             });
-        });
         containerPanel.add(card);
         containerPanel.revalidate();
         containerPanel.repaint();
