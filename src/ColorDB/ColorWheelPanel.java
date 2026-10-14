@@ -7,7 +7,10 @@ import java.awt.event.MouseEvent;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+//**
+// Creates the color circle mathematically by using Graphics type
+// Navigates where the user has clicked on the color wheel and sends this information to rest of classes
+// *//
 public class ColorWheelPanel extends JPanel {
 
     private float selectedHue = 0.0f;
@@ -18,6 +21,8 @@ public class ColorWheelPanel extends JPanel {
     private Color actualcolor;
 
     public ColorWheelPanel() {
+
+        //Calculates the color depending on which pixel did the user clicked
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -59,14 +64,14 @@ public class ColorWheelPanel extends JPanel {
             }
         });
     }
-
+    // Gets information form brightness slider and updates the current color, so it matches the users input
     public void setBrightness(float brightness) {
         this.selectedBrightness = brightness;
         if(selectedX>=0 && selectedY>=0){
             setactualColor(selectedHue,selectedSaturation);
         }
     }
-
+    //Gets information about new change of selected color and sets new actual color with new properties
     public void setactualColor(float hue, float saturation) {
         Color oldcolor = actualcolor;
         int rgb = Color.HSBtoRGB(hue, saturation, selectedBrightness);
@@ -79,10 +84,13 @@ public class ColorWheelPanel extends JPanel {
     public Color getActualColor(){
         return actualcolor;
     }
+    // Checks if point (x,y) is in the circle (important in making a color circle in method above)
     private boolean isInside(int x, int y) {
         Point center = new Point();
         center.x = getWidth() / 2;
         center.y = getHeight() / 2;
+
+        // Selects which radius is more appropriate depending on how big is the panel
         int radius = Math.min(center.x, center.y);
 
         radius -= 10;
@@ -90,7 +98,11 @@ public class ColorWheelPanel extends JPanel {
 
         pixel.x = x - center.x;
         pixel.y = y - center.y;
+
+        //Calculates the distance form the center of the circle
         double distance = Math.sqrt(pixel.x * pixel.x + pixel.y * pixel.y);
+
+        //Checks if the pixel is inside or on the circle
         if (radius >= distance) {
             return true;
         }
@@ -98,11 +110,14 @@ public class ColorWheelPanel extends JPanel {
 
     }
 
+    //Paints the color circle
     @Override
     protected void paintComponent(Graphics g) {
         Point center = new Point();
         center.x = getWidth() / 2;
         center.y = getHeight() / 2;
+
+        // Selects which radius is more appropriate depending on how big is the panel
         int radius = Math.min(center.x, center.y) - 10;
 
         Point pixel = new Point();
@@ -113,14 +128,21 @@ public class ColorWheelPanel extends JPanel {
                 if (isInside(x, y)) {
                     pixel.x = x - center.x;
                     pixel.y = y - center.y;
+
+                    //Calculates the distance from the center
                     double distance = Math.sqrt(pixel.x * pixel.x + pixel.y * pixel.y);
+
+                    //Calculates how much saturation is in the color depending on how far it is from the center
                     float saturation = (float) (distance / radius);
+
+                    //Calculates the hue of a pixel depending on which angle it lies
                     double angle = Math.atan2(-(pixel.y), pixel.x);
                     double hueDegree = Math.toDegrees(angle);
                     if (hueDegree < 0) {
                         hueDegree += 360;
                     }
                     float hue = (float) (hueDegree / 360.0);
+
                     float brigtness = 1.0f;
                     int rgb = Color.HSBtoRGB(hue, saturation, brigtness);
                     Color pixelColour = new Color(rgb);
@@ -132,6 +154,8 @@ public class ColorWheelPanel extends JPanel {
                 }
             }
         }
+
+        //Draws a white circle around picked pixel
         if (selectedX >= 0 && selectedY >= 0) {
             g.setColor(Color.WHITE);
 

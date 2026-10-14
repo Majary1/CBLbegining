@@ -14,7 +14,9 @@ import java.io.IOException;
 import static ColorDB.ColorChanger.colorChange;
 
 public class CharacterPanel extends JPanel {
-
+    //**
+    // Panel for displaying character and clothes
+    // *//
     final int WIDTH = 500;
     final int LENGTH = 700;
     private BufferedImage character;
@@ -36,6 +38,7 @@ public class CharacterPanel extends JPanel {
         startBlinking();
 
     }
+    //Paints clothes on character
     @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
@@ -63,12 +66,15 @@ public class CharacterPanel extends JPanel {
 
 
     }
+    //Blink Animation
     private void startBlinking(){
         BufferedImage save = character;
         Timer blink = new Timer(6000,e->{
+            //Changes from open to closed eyes
             character=characterClosed;
             revalidate();
             repaint();
+            //And again for open
             Timer reopen = new Timer(150,ev->{
                 character=save;
                 revalidate();
@@ -80,6 +86,7 @@ public class CharacterPanel extends JPanel {
         blink.start();
 
     }
+    //Depending on category and color, it returns correct image
     public void setIconByCategory(Category category,Color selectedColor){
         switch (category) {
             case TOP -> this.currentTop = colorChange(loadImage("src/AddFiles/assets/top_on.png"),selectedColor);
@@ -91,7 +98,7 @@ public class CharacterPanel extends JPanel {
         repaint();
     }
 
-
+//Loading for images
 private BufferedImage loadImage(String path) {
     try {
         return ImageIO.read(new File(path));
@@ -102,6 +109,7 @@ private BufferedImage loadImage(String path) {
 public Outfit getCurrentOutfit(){
         return currentOutfit;
 }
+//Removes all clothes from character
 public void Reset(){
         currentHat=null;
         currentAccessories = null;
@@ -110,6 +118,7 @@ public void Reset(){
         currentTop = null;
         currentOutfit.partsOfOutfit.clear();
 }
+
     public void removeClothingById(int clothingId) {
 
         Category categoryToRemove = null;

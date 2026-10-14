@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CategoryPanel extends JPanel {
-
+    //Top part of a wardrobe panel
     private JButton shoesButton;
     private JButton topButton;
     private JButton bottomButton;
@@ -31,6 +31,7 @@ public class CategoryPanel extends JPanel {
         add(hatButton);
         add(accessoriesButton);
         setActive(topButton);
+        //Depending on what button is active, it shows different categories in Wardrobe Container Panel
         //Actions
         topButton.addActionListener(e -> {
             setActive(topButton);
@@ -56,6 +57,7 @@ public class CategoryPanel extends JPanel {
     public Category getCurrentCategory(){
         return currentCategory;
     }
+    //Creates given type of buttons
     private JButton createCategoryButton(String text) {
 
         JButton button = new JButton(text);
@@ -95,7 +97,7 @@ public class CategoryPanel extends JPanel {
         return hatButton;
     }
 
-
+    // Turns button into given theme
     public void setActive(JButton activeButton) {
 
         JButton[] buttons = {

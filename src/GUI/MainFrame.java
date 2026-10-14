@@ -2,8 +2,8 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
-import static GUI.AddClothing.*;
-import static GUI.CreateOutfit.*;
+
+
 import ColorDB.ColorWheelPanel;
 
 public class MainFrame extends JFrame {

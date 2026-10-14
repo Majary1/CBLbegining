@@ -13,6 +13,9 @@ import java.io.IOException;
 import static ColorDB.ColorChanger.colorChange;
 
 public class ClothingCard extends JButton {
+    //**
+    // Creates the Clothing cards in Wardorbe Container Panel
+    // *//
     private JLabel image;
     private JLabel nameLabel;
     private CharacterPanel characterPanel;
@@ -27,9 +30,13 @@ public class ClothingCard extends JButton {
         setBorder(BorderFactory.createLineBorder(Theme.BORDER,1));
         width-=20;
         setPreferredSize(new Dimension((width/2),150));
+
+        //Adding image
         BufferedImage bufferedImage = getImageforCategory(clothes);
         Image scaledImage = bufferedImage.getScaledInstance(120,160,Image.SCALE_SMOOTH);
         ImageIcon icon = new ImageIcon(scaledImage);
+
+        //And its features
         image = new JLabel();
         image.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -54,6 +61,7 @@ public class ClothingCard extends JButton {
         add(topPanel, BorderLayout.NORTH);
     }
 
+//Depending on category of the clothes, it returns given type of image.
     public BufferedImage getImageforCategory(Clothes clothes){
         return switch(clothes.getCategory()){
             case TOP ->
@@ -68,6 +76,8 @@ public class ClothingCard extends JButton {
                     colorChange(loadImage("src/AddFiles/assets/accessory_necklace_bow_gem_pixel.png"), clothes.getAvarageColor());
         };
     }
+
+    //Loads a buffered image
     private BufferedImage loadImage(String path) {
         try {
             return ImageIO.read(new File(path));

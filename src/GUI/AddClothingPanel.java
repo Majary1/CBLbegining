@@ -15,7 +15,9 @@ import java.io.IOException;
 import static ColorDB.ColorChanger.colorChange;
 
 public class AddClothingPanel extends JPanel {
-
+    //**
+    // Creates the Add Clothing Panel, holds every sub panel and puts it in right order
+    // *//
     private JTextField nameField;
     private JComboBox<Category> categoryBox;
     private ColorWheelPanel colorWheelPanel;
@@ -99,6 +101,8 @@ public class AddClothingPanel extends JPanel {
         nameCategory.add(Box.createVerticalStrut(7));
         nameCategory.add(categoryBox);
 
+        JLabel typeLabel = createLabel("Type");
+
         second.add(preview, BorderLayout.WEST);
         second.add(nameCategory, BorderLayout.CENTER);
 
@@ -126,7 +130,7 @@ public class AddClothingPanel extends JPanel {
         brightnessSlider = new BrightnessSlider();
         brightnessSlider.setMaximumSize(new Dimension(60, Integer.MAX_VALUE));
         brightnessSlider.setAlignmentX(Component.LEFT_ALIGNMENT);
-
+        //Controls the brightness of the color
         brightnessSlider.addChangeListener(e -> {
             float brightness = brightnessSlider.getValue() / 100.0f;
             colorWheelPanel.setBrightness(brightness);
@@ -237,7 +241,7 @@ public class AddClothingPanel extends JPanel {
         add(addButton);
         add(Box.createVerticalStrut(10));
     }
-
+    //Sets general Theme for labels
     private JLabel createLabel(String text) {
         JLabel label = new JLabel(text);
         label.setFont(Theme.BUTTON_FONT);
@@ -245,7 +249,7 @@ public class AddClothingPanel extends JPanel {
         label.setAlignmentX(Component.LEFT_ALIGNMENT);
         return label;
     }
-
+    //Loads images for the preview
     public BufferedImage getImageforCategory(Category category, Color selectedColor) {
         return switch (category) {
             case TOP -> colorChange(
@@ -274,7 +278,7 @@ public class AddClothingPanel extends JPanel {
             );
         };
     }
-
+    //Loading for a buffered image
     private BufferedImage loadImage(String path) {
         try {
             return ImageIO.read(new File(path));
@@ -282,7 +286,7 @@ public class AddClothingPanel extends JPanel {
             throw new RuntimeException("Could not load image: " + path, e);
         }
     }
-
+    // Sets image on Adding Panel
     private JLabel setPreview(Category category, Color color) {
         BufferedImage bufferedImage = getImageforCategory(category, color);
         Image previewCloth = bufferedImage.getScaledInstance(120, 160, Image.SCALE_SMOOTH);

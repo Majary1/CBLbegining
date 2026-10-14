@@ -2,6 +2,12 @@ package ColorDB;
 
 import java.awt.*;
 
+//**
+// Turns color from RGB format to HSV format,
+// where u can take each parameter separately
+//
+// *//
+
 public class ColorAnalyze {
     private float hue;
     private float saturation;

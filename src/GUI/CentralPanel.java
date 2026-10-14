@@ -4,7 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class CentralPanel extends JPanel {
-
+    //**
+    // Contains wardrobe and character Panel
+    // *//
     private WardrobePanel wardrobePanel;
     private CharacterPanel characterPanel;
     private Image background;
@@ -24,7 +26,7 @@ public class CentralPanel extends JPanel {
 
 
     }
-
+    //Show background image
     @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);

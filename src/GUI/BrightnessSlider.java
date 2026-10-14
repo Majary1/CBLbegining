@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class BrightnessSlider extends JSlider{
-
+    //Creates and paints the look of Brightness slider
     public BrightnessSlider(){
          super(JSlider.VERTICAL,0, 100, 100);
         setMaximumSize(new Dimension(Integer.MAX_VALUE, 45));
@@ -17,13 +17,17 @@ public class BrightnessSlider extends JSlider{
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g.create();
+
+        //Sets more detailed and softer images
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
+        //Calculates the slider placement
         int trackWidth = 16;
         int x =( getWidth()-trackWidth)/2;
         int y = 0;
 
         int heigh = getHeight();
+        //Allows to make a transition
         GradientPaint gradient = new GradientPaint(x,y,Color.WHITE,x,y+heigh,Color.BLACK);
 
         g2.setPaint(gradient);
@@ -31,6 +35,7 @@ public class BrightnessSlider extends JSlider{
         g2.setColor(Color.DARK_GRAY);
         g2.drawRoundRect(x,y,trackWidth,heigh,16,16);
 
+        //Calculates the placement of a rectangle
         int thumbSize = 16;
         float percentage = (float) (getValue() - getMinimum()) / (getMaximum() - getMinimum());
 
