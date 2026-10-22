@@ -4,7 +4,6 @@ import ColorDB.ColorWheelPanel;
 import ColorDB.DbController;
 import Obj.Category;
 import Obj.Clothes;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -215,10 +214,12 @@ public class AddClothingPanel extends JPanel {
                     ? selectedColor
                     : Color.WHITE;
 
-            Clothes clothes = new Clothes(order, nameField.getText(), (Category) categoryBox.getSelectedItem(), selectedColor);
+            Clothes clothes = new Clothes(order, nameField.getText(),
+                    (Category) categoryBox.getSelectedItem(), selectedColor);
             order++;
             boolean saved = db.saveClothes(clothes);
             if (saved) {
+
                 JOptionPane.showMessageDialog(this, "Clothing saved!");
             } else {
                 JOptionPane.showMessageDialog(this, "Could not save clothing.");

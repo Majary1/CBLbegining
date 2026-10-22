@@ -117,10 +117,11 @@ public void Reset(){
         currentBottom = null;
         currentTop = null;
         currentOutfit.partsOfOutfit.clear();
+        revalidate();
+        repaint();
 }
 
     public void removeClothingById(int clothingId) {
-
         Category categoryToRemove = null;
 
         for (Clothes clothes : currentOutfit.getPartsOfOutfit()) {
