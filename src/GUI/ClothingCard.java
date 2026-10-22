@@ -45,7 +45,7 @@ public class ClothingCard extends JButton {
 
         add(image, BorderLayout.CENTER);
 
-
+        // Makes the delete button
         deleteButton.setPreferredSize(new Dimension(25, 25));
 
         deleteButton.setBackground(Theme.ACCENT);

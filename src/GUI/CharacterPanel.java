@@ -16,7 +16,7 @@ import static ColorDB.ColorChanger.colorChange;
 public class CharacterPanel extends JPanel {
     //**
     // Panel for displaying character and clothes
-    // *//
+    //
     final int WIDTH = 500;
     final int LENGTH = 700;
     private BufferedImage character;
@@ -122,6 +122,7 @@ public void Reset(){
 }
 
     public void removeClothingById(int clothingId) {
+        // Will hold the category of the item being removed (so we know which slot to clear)
         Category categoryToRemove = null;
 
         for (Clothes clothes : currentOutfit.getPartsOfOutfit()) {
@@ -136,10 +137,11 @@ public void Reset(){
             return;
         }
 
+        // Remove the item from the outfit's list of parts
         currentOutfit.getPartsOfOutfit().removeIf(
                 clothes -> clothes.getId() == clothingId
         );
-
+        // Also clear the matching field, so the item stops being drawn
         switch (categoryToRemove) {
 
             case TOP -> currentTop = null;

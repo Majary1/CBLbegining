@@ -9,15 +9,10 @@ import java.util.List;
 public class DbController {
     String url = "jdbc:sqlite:src/AddFiles/DataBase.db";
 
-
+    /**
+     *  Opens a new connection enabling access to Database
+     */
     public Connection getConnection() throws SQLException {
-        /*
-        Connection connection = DriverManager.getConnection(url);
-        try (Statement st = connection.createStatement()) {
-            st.execute("PRAGMA foreign_keys = ON");
-        }
-        return connection;
-         */
 
         try {
             Class.forName("org.sqlite.JDBC");
@@ -37,7 +32,7 @@ public class DbController {
         return connection;
     }
 
-// This fnuction is not needed yet in case it is would be in a future it is left written here!
+// This fnuction is not needed yet in case it is would be in the future it is left written here!
     /*
     public void initSchema(){
         String clothes = "CREATE TABLE IF NOT EXISTS Clothes ("
@@ -64,26 +59,9 @@ public class DbController {
      */
 
 
-    public Clothes findPieceOfClothnigByID(int id){
-        String sql = "SELECT ID, NAME, CATEGORY, COLOR FROM CLOTHES WHERE ID = ?";
-        try (Connection c = getConnection();
-             PreparedStatement ps = c.prepareStatement(sql)) {
-
-            ps.setInt(1, id);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    int clothesId = rs.getInt("ID");
-                    String clothesName = rs.getNString("NAME");
-                    String clothesCategory = rs.getString("CATEGORY");
-                    String clothesColor = rs.getString("COLOR");
-                }
-            }
-        } catch (SQLException e) {
-            System.err.println("Database error: " + e.getMessage());
-        }
-        return null;
-    }
-
+    /**
+     * Returns all clothes of a category, converting the "r,g,b" DB text back into a Color.
+     */
     public List<Clothes> showClothesByCategory(Category category){
 
         List<Clothes> clothesList = new ArrayList<>();
@@ -109,6 +87,10 @@ public class DbController {
         return clothesList;
     }
 
+    /**
+     * Inserts a clothing item; color is stored as "r,g,b" text.
+     * Returns true if one row was added.
+     */
     public boolean saveClothes(Clothes clothes){
         String sql = "INSERT INTO CLOTHES (NAME, CATEGORY, COLOR) VALUES (?, ?, ?)";
         try(Connection c = getConnection();
@@ -125,7 +107,44 @@ public class DbController {
             return false;
         }
     }
+    /**
+     * Parses "r,g,b" into a Color; falls back to gray if the text is malformed.
+     */
+    public boolean deleteClothing(int id){
+        String sql = "DELETE FROM CLOTHES WHERE ID = ?";
 
+        try (Connection c = getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+
+            return  ps.executeUpdate() == 1;
+        }
+        catch (SQLException e){
+            System.err.println("Could not delete clothing" + e.getMessage());
+            return false;
+        }
+    }
+
+    private Color parseColor(String color) {
+        try {
+            String[] rgb = color.split(",");
+            int r = Integer.parseInt(rgb[0]);
+            int g = Integer.parseInt(rgb[1]);
+            int b = Integer.parseInt(rgb[2]);
+            return new Color(r, g, b);
+        } catch (Exception e) {
+            return Color.GRAY;
+        }
+    }
+
+
+    /**  !!! ___ BELOW UNUSED METHODS ___ !!!
+
+    /**
+     * Intended to load one clothing item by Category.
+     * Currently not used
+     */
     public Category findClothingByCategory(Category category){
         String sql = "SELECT ID, NAME, CATEGORY, CLOTHES FROM OUTFITS WHERE CLOTHES = ?";
         try (Connection c = getConnection();
@@ -146,20 +165,29 @@ public class DbController {
         return null;
     }
 
-    public boolean deleteClothing(int id){
-        String sql = "DELETE FROM CLOTHES WHERE ID = ?";
 
+    /**
+     * Intended to load one clothing item by ID.
+     * Currently not used
+     */
+    public Clothes findPieceOfClothnigByID(int id){
+        String sql = "SELECT ID, NAME, CATEGORY, COLOR FROM CLOTHES WHERE ID = ?";
         try (Connection c = getConnection();
              PreparedStatement ps = c.prepareStatement(sql)) {
 
             ps.setInt(1, id);
-
-            return  ps.executeUpdate() == 1;
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    int clothesId = rs.getInt("ID");
+                    String clothesName = rs.getNString("NAME");
+                    String clothesCategory = rs.getString("CATEGORY");
+                    String clothesColor = rs.getString("COLOR");
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Database error: " + e.getMessage());
         }
-        catch (SQLException e){
-            System.err.println("Could not delete clothing" + e.getMessage());
-            return false;
-        }
+        return null;
     }
 
     public boolean saveOutfit(Outfit outfit){
@@ -223,17 +251,6 @@ public class DbController {
         catch (SQLException e){
             System.err.println("Could not delete clothing" + e.getMessage());
             return false;
-        }
-    }
-    private Color parseColor(String color) {
-        try {
-            String[] rgb = color.split(",");
-            int r = Integer.parseInt(rgb[0]);
-            int g = Integer.parseInt(rgb[1]);
-            int b = Integer.parseInt(rgb[2]);
-            return new Color(r, g, b);
-        } catch (Exception e) {
-            return Color.GRAY;
         }
     }
 }
