@@ -32,7 +32,7 @@ public class DbController {
         return connection;
     }
 
-// This fnuction is not needed yet in case it is would be in the future it is left written here!
+// This function is not needed yet in case it is would be in the future it is left written here!
     /*
     public void initSchema(){
         String clothes = "CREATE TABLE IF NOT EXISTS Clothes ("
@@ -97,7 +97,7 @@ public class DbController {
             PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setString(1, clothes.getName());
             ps.setString(2, clothes.getCategory().name());
-            //we change the format to r,g,b not some strange idk
+            //we change the format to r,g,b
             Color avarageColor = clothes.getAvarageColor();
             ps.setString(3, avarageColor.getRed()+","+ avarageColor.getGreen()+","+avarageColor.getBlue());
 
