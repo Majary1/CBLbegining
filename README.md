@@ -14,3 +14,6 @@ such as `src/AddFiles/assets/room.png`, so starting from another folder makes th
 
 In IntelliJ IDEA, open the project folder, add `src/AddFiles/sqlite-jdbc-3.53.4.0.jar` as a library (File > Project Structure > Libraries) if it is not there yet, and run `src/Main.java`. 
 The working directory of the run configuration must be the project root, which is the default.
+
+**Important:** if the database does not work accurately it might be due to windows blocking the driver on the device in this case to run the application 
+the smart app control should be turned off. After that the app should work as intended. 
